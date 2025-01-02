@@ -3,9 +3,13 @@ import classes from './header.module.scss';
 const Header = () => {
   return (
     <header className={classes.header}>
-      <span>Realworld Blog</span>
-      <button>Sign In</button>
-      <button>Sign Up</button>
+      <span className={classes.header__title}>Realworld Blog</span>
+      <div className={classes['login-block']}>
+        <button className={classes['login-block__button']}>Sign In</button>
+        <button className={`${classes['login-block__button']} ${classes['login-block__button--accent']}`}>
+          Sign Up
+        </button>
+      </div>
     </header>
   );
 };

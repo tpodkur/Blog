@@ -19,3 +19,18 @@ ol,
 li {
   margin: 0;
 }
+
+@font-face {
+  font-family: 'Inter';
+  src:
+          local('Inter'),
+          local('Inter'),
+          url('../../fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #EBEEF3;
+  font-family: 'Inter', sans-serif;
+}

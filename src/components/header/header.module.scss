@@ -1,3 +1,41 @@
 .header {
+  height: 80px;
+  padding: 0 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
 
+  &__title {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+.login-block {
+  &__button {
+    width: 109px;
+    height: 51px;
+    border: none;
+    background-color: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
+
+    &:first-child {
+      margin-right: 19px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.5s;
+    }
+
+    &--accent {
+      border: 1px solid #52C41A;
+      border-radius: 5px;
+      color: #52C41A;
+    }
+  }
 }
