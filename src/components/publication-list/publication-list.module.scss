@@ -1,7 +1,18 @@
 .publication-list {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 26px;
 
+  &__pagination {
+    margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .publication {
-
+  width: 65%;
 }

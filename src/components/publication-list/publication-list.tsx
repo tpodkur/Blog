@@ -10,8 +10,16 @@ const PublicationList = () => {
         <li className={classes.publication}>
           <Publication />
         </li>
+        <li className={classes.publication}>
+          <Publication />
+        </li>
+        <li className={classes.publication}>
+          <Publication />
+        </li>
       </ul>
-      <Pagination page={1} onPageChange={console.log} totalItemsCount={100} />
+      <div className={classes['publication-list__pagination']}>
+        <Pagination page={1} onPageChange={console.log} totalItemsCount={100} />
+      </div>
     </>
   );
 };
