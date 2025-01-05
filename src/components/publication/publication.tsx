@@ -1,6 +1,41 @@
 import classes from './publication.module.scss';
 
 const Publication = () => {
+  const tags = [
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag',
+    'Tag3Tag3Tag3Tag3Tag3Tag3Tag3Tag3',
+  ];
+  const text =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+
+  const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
+    if (linesCount < 0) return '';
+    const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
+    slicedTextInArr.pop();
+    return slicedTextInArr.join(' ') + ' ...';
+  };
+
+  const tagsLengthInSymbols = tags.reduce((acc, tag) => {
+    return acc + tag.length;
+  }, 0);
+  // card width 820 -- 1 line tags: 42 symbols -- 1 text line: 100 symbols
+  const tagsLinesCount = Math.ceil(tagsLengthInSymbols / 42);
+  const shortText = shortenText(100, 3 - tagsLinesCount, text);
+
   return (
     <div className={classes.publication}>
       <div className={classes.publication__content}>
@@ -14,17 +49,13 @@ const Publication = () => {
           </div>
         </div>
         <ul className={classes['tags-list']}>
-          <li className={classes.tag}>Tag1</li>
-          <li className={classes.tag}>Tag2</li>
-          <li className={classes.tag}>Tag3Tag3Tag3Tag3Tag3Tag3Tag3Tag3</li>
-          <li className={classes.tag}>Tag3Tag3Tag3Tag3Tag3Tag3Tag3Tag3</li>
-          <li className={classes.tag}>Tag1</li>
+          {tags.map((tag, ind) => (
+            <li className={classes.tag} key={ind}>
+              {tag}
+            </li>
+          ))}
         </ul>
-        <p className={classes.publication__text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.{' '}
-        </p>
+        <p className={classes.publication__text}>{shortText}</p>
       </div>
       <div className={classes.user}>
         <div className={classes.user__label}>
