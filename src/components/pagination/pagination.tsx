@@ -1,4 +1,4 @@
-import { Pagination as AntdPagination } from 'antd';
+import { ConfigProvider, Pagination as AntdPagination } from 'antd';
 
 type PaginationProps = {
   page: number;
@@ -8,14 +8,27 @@ type PaginationProps = {
 
 const Pagination = ({ page, totalItemsCount, onPageChange }: PaginationProps) => {
   return (
-    <AntdPagination
-      current={page}
-      defaultCurrent={1}
-      total={totalItemsCount}
-      pageSize={20}
-      showSizeChanger={false}
-      onChange={onPageChange}
-    />
+    <ConfigProvider
+      theme={{
+        components: {
+          Pagination: {
+            itemActiveBg: '#1890FF',
+            itemBg: '#EBEEF3',
+            colorPrimary: '#EBEEF3',
+            colorPrimaryHover: '#EBEEF3',
+          },
+        },
+      }}
+    >
+      <AntdPagination
+        current={page}
+        defaultCurrent={1}
+        total={totalItemsCount}
+        pageSize={20}
+        showSizeChanger={false}
+        onChange={onPageChange}
+      />
+    </ConfigProvider>
   );
 };
 
