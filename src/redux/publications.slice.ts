@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-type PublicationId = string;
+export type PublicationId = string;
 
-type Publication = {
+export type Publication = {
   id: string;
   title: string;
   tags: string[];
@@ -28,7 +28,9 @@ const initialPublicationsState: PublicationsState = {
 export const publicationsSlice = createSlice({
   name: 'publication',
   initialState: initialPublicationsState,
-  // selectors:
+  selectors: {
+    loading: (state: PublicationsState) => state.loading,
+  },
   reducers: {
     savePublications: (state, action: PayloadAction<{ publications: Publication[] }>) => {
       const { publications } = action.payload;
@@ -44,6 +46,7 @@ export const publicationsSlice = createSlice({
           }, {}),
         },
         ids: [...state.ids, ...publications.map((pub) => pub.id)],
+        loading: false,
       };
     },
   },
