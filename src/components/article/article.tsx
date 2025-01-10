@@ -1,27 +1,8 @@
+import { Article as ArticleType } from '../../redux/articles.slice.ts';
+
 import classes from './article.module.scss';
 
-const Article = () => {
-  const tags = [
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag',
-    'Tag3Tag3Tag3Tag3Tag3Tag3Tag3Tag3',
-  ];
-  const text =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
-
+const Article = ({ title, tags, text, author, avatar, date }: ArticleType) => {
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
     if (linesCount < 0) return '';
     const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
@@ -40,7 +21,7 @@ const Article = () => {
     <div className={classes.article}>
       <div className={classes.article__content}>
         <div className={classes.article__header}>
-          <h3 className={classes.article__title}>Some article title</h3>
+          <h3 className={classes.article__title}>{title}</h3>
           <div className={`${classes.article__likes} ${classes.likes}`}>
             <button className={classes.likes__logo}>
               <img src="./src/assets/like.svg" />
@@ -59,10 +40,11 @@ const Article = () => {
       </div>
       <div className={classes.user}>
         <div className={classes.user__label}>
-          <p className={classes.user__name}>John Doe</p>
-          <p className={classes.date}>March 5, 2020</p>
+          <p className={classes.user__name}>{author}</p>
+          <p className={classes.date}>{date}</p>
         </div>
-        <img className={classes.user__avatar} src="./src/assets/user.png" alt="user avatar" />
+        {/*<img className={classes.user__avatar} src="./src/assets/user.png" alt="user avatar" />*/}
+        <img className={classes.user__avatar} src={avatar} alt="user avatar" />
       </div>
     </div>
   );

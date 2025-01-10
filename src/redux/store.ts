@@ -1,6 +1,7 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import type { UnknownAction } from '@reduxjs/toolkit';
 import type { ThunkAction } from 'redux-thunk';
+import { useSelector } from 'react-redux';
 
 import { api } from '../shared/api.ts';
 
@@ -23,5 +24,7 @@ const store = configureStore({
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<R = void> = ThunkAction<R, AppState, typeof extraArgument, UnknownAction>;
+
+export const useAppSelector = useSelector.withTypes<AppState>();
 
 export default store;

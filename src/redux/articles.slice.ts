@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type ArticleId = string;
@@ -30,6 +30,13 @@ export const articlesSlice = createSlice({
   initialState: initialArticlesState,
   selectors: {
     loading: (state: ArticlesState) => state.loading,
+    articles: createSelector(
+      (state: ArticlesState) => state.entities,
+      (state: ArticlesState) => state.ids,
+      (entities, ids) => {
+        return ids.map((id) => entities[id]);
+      }
+    ),
   },
   reducers: {
     saveArticles: (state, action: PayloadAction<{ articles: Article[] }>) => {
