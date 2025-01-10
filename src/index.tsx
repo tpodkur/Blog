@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 
 import App from './components/app/app.tsx';
 import store from './redux/store.ts';
-import { fetchArticles } from './shared/fetch-articles.ts';
+import { requestArticles } from './shared/request-articles.ts';
 
-store.dispatch(fetchArticles());
+store.dispatch(requestArticles());
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

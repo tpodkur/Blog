@@ -1,7 +1,7 @@
 import { AppThunk } from '../redux/store.ts';
 import { publicationsSlice, Publication } from '../redux/publications.slice.ts';
 
-export const fetchArticles =
+export const requestArticles =
   (): AppThunk =>
   (dispatch, _, { api }) => {
     api.getPublications().then((response) => {
