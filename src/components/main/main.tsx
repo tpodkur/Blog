@@ -1,11 +1,11 @@
-import PublicationList from '../publication-list/publication-list.tsx';
+import ArticleList from '../article-list/article-list.tsx';
 
 import classes from './main.module.scss';
 
 const Main = () => {
   return (
     <main className={classes.main}>
-      <PublicationList />
+      <ArticleList />
     </main>
   );
 };

@@ -1,6 +1,6 @@
-import classes from './publication.module.scss';
+import classes from './article.module.scss';
 
-const Publication = () => {
+const Article = () => {
   const tags = [
     'Tag',
     'Tag',
@@ -37,11 +37,11 @@ const Publication = () => {
   const shortText = shortenText(100, 3 - tagsLinesCount, text);
 
   return (
-    <div className={classes.publication}>
-      <div className={classes.publication__content}>
-        <div className={classes.publication__header}>
-          <h3 className={classes.publication__title}>Some article title</h3>
-          <div className={`${classes.publication__likes} ${classes.likes}`}>
+    <div className={classes.article}>
+      <div className={classes.article__content}>
+        <div className={classes.article__header}>
+          <h3 className={classes.article__title}>Some article title</h3>
+          <div className={`${classes.article__likes} ${classes.likes}`}>
             <button className={classes.likes__logo}>
               <img src="./src/assets/like.svg" />
             </button>
@@ -55,7 +55,7 @@ const Publication = () => {
             </li>
           ))}
         </ul>
-        <p className={classes.publication__text}>{shortText}</p>
+        <p className={classes.article__text}>{shortText}</p>
       </div>
       <div className={classes.user}>
         <div className={classes.user__label}>
@@ -68,4 +68,4 @@ const Publication = () => {
   );
 };
 
-export default Publication;
+export default Article;

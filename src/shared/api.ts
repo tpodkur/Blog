@@ -25,7 +25,7 @@ const ArticleDto = z.object({
 });
 
 export const api = {
-  getPublications: async () => {
+  getArticles: async () => {
     return await axios
       .get(`${baseURL}/articles`)
       .then((response) => {

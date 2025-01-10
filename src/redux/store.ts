@@ -4,13 +4,13 @@ import type { ThunkAction } from 'redux-thunk';
 
 import { api } from '../shared/api.ts';
 
-import { publicationsSlice } from './publications.slice.ts';
+import { articlesSlice } from './articles.slice.ts';
 
 const extraArgument = {
   api,
 };
 
-const reducer = combineSlices(publicationsSlice);
+const reducer = combineSlices(articlesSlice);
 
 const store = configureStore({
   reducer,

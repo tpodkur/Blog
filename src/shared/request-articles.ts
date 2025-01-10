@@ -1,11 +1,11 @@
 import { AppThunk } from '../redux/store.ts';
-import { publicationsSlice, Publication } from '../redux/publications.slice.ts';
+import { articlesSlice, Article } from '../redux/articles.slice.ts';
 
 export const requestArticles =
   (): AppThunk =>
   (dispatch, _, { api }) => {
-    api.getPublications().then((response) => {
-      const publications = response
+    api.getArticles().then((response) => {
+      const articles = response
         ? response?.articles.map(
             (article) =>
               ({
@@ -16,10 +16,10 @@ export const requestArticles =
                 author: article.author.username,
                 avatar: article.author.image,
                 date: article.createdAt,
-              }) satisfies Publication
+              }) satisfies Article
           )
         : [];
 
-      dispatch(publicationsSlice.actions.savePublications({ publications }));
+      dispatch(articlesSlice.actions.saveArticles({ articles }));
     });
   };
