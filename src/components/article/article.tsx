@@ -1,8 +1,12 @@
+import { useState } from 'react';
+
 import { Article as ArticleType } from '../../redux/articles.slice.ts';
 
 import classes from './article.module.scss';
 
 const Article = ({ title, tags, text, author, avatar, date }: ArticleType) => {
+  const [hasError, setHasError] = useState(false);
+
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
     if (linesCount < 0) return '';
     const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
@@ -44,7 +48,12 @@ const Article = ({ title, tags, text, author, avatar, date }: ArticleType) => {
           <p className={classes.date}>{date}</p>
         </div>
         {/*<img className={classes.user__avatar} src="./src/assets/user.png" alt="user avatar" />*/}
-        <img className={classes.user__avatar} src={avatar} alt="user avatar" />
+        <img
+          className={classes.user__avatar}
+          src={hasError ? './src/assets/user.png' : avatar}
+          alt="user avatar"
+          onError={() => setHasError(!hasError)}
+        />
       </div>
     </div>
   );
