@@ -4,7 +4,7 @@ import { Article as ArticleType } from '../../redux/articles.slice.ts';
 
 import classes from './article.module.scss';
 
-const Article = ({ title, tags, text, author, avatar, date }: ArticleType) => {
+const Article = ({ title, tags, text, author, avatar, date, favorited, favoritesCount }: ArticleType) => {
   const [hasError, setHasError] = useState(false);
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
@@ -28,9 +28,9 @@ const Article = ({ title, tags, text, author, avatar, date }: ArticleType) => {
           <h3 className={classes.article__title}>{title}</h3>
           <div className={`${classes.article__likes} ${classes.likes}`}>
             <button className={classes.likes__logo}>
-              <img src="./src/assets/like.svg" />
+              <img src={favorited ? './src/assets/like--active.svg' : './src/assets/like.svg'} />
             </button>
-            <span className={classes.likes__count}>12</span>
+            <span className={classes.likes__count}>{favoritesCount}</span>
           </div>
         </div>
         <ul className={classes['tags-list']}>

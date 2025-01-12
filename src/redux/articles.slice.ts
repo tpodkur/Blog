@@ -11,6 +11,8 @@ export type Article = {
   author: string;
   avatar: string;
   date: string;
+  favorited: boolean;
+  favoritesCount: number;
 };
 
 type ArticlesState = {

@@ -12,10 +12,12 @@ export const requestArticles =
                 id: article.slug,
                 title: article.title,
                 tags: article.tagList,
-                text: article.body,
+                text: article.body ? article.body : '',
                 author: article.author.username,
                 avatar: article.author.image,
                 date: article.createdAt,
+                favorited: article.favorited,
+                favoritesCount: article.favoritesCount,
               }) satisfies Article
           )
         : [];

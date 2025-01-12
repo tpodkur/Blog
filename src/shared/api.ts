@@ -10,7 +10,7 @@ const ArticleDto = z.object({
       title: z.string(),
       description: z.string(),
       tagList: z.array(z.string()),
-      body: z.string(),
+      body: z.string().or(z.undefined()),
       author: z.object({
         username: z.string(),
         image: z.string(),
