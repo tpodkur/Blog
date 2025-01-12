@@ -1,5 +1,5 @@
 .article {
-  height: 140px;
+  min-height: 140px;
   padding: 15px 16px;
   background-color: white;
   box-shadow: 0 4px 12px 0 #00000026;
@@ -22,6 +22,8 @@
     font-size: 20px;
     line-height: 28px;
     color: #366EFF;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &__likes {

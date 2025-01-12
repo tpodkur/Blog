@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { format } from 'date-fns';
 
 import { Article as ArticleType } from '../../redux/articles.slice.ts';
 
@@ -8,7 +9,8 @@ const Article = ({ title, tags, text, author, avatar, date, favorited, favorites
   const [hasError, setHasError] = useState(false);
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
-    if (linesCount < 0) return '';
+    if (linesCount <= 0) return '';
+    if (text.length <= charactersPerLine) return text;
     const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
     slicedTextInArr.pop();
     return slicedTextInArr.join(' ') + ' ...';
@@ -45,9 +47,8 @@ const Article = ({ title, tags, text, author, avatar, date, favorited, favorites
       <div className={classes.user}>
         <div className={classes.user__label}>
           <p className={classes.user__name}>{author}</p>
-          <p className={classes.date}>{date}</p>
+          <p className={classes.date}>{format(new Date(date), 'PP')}</p>
         </div>
-        {/*<img className={classes.user__avatar} src="./src/assets/user.png" alt="user avatar" />*/}
         <img
           className={classes.user__avatar}
           src={hasError ? './src/assets/user.png' : avatar}
