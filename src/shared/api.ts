@@ -25,9 +25,9 @@ const ArticleDto = z.object({
 });
 
 export const api = {
-  getArticles: async () => {
+  getArticles: async (offset: number = 0) => {
     return await axios
-      .get(`${baseURL}/articles`)
+      .get(`${baseURL}/articles?offset=${offset}`)
       .then((response) => {
         return ArticleDto.parse(response.data);
       })

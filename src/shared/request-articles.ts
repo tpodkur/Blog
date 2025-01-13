@@ -2,9 +2,10 @@ import { AppThunk } from '../redux/store.ts';
 import { articlesSlice, Article } from '../redux/articles.slice.ts';
 
 export const requestArticles =
-  (): AppThunk =>
+  (page: number = 1): AppThunk =>
   (dispatch, _, { api }) => {
-    api.getArticles().then((response) => {
+    const offset = (page - 1) * 20;
+    api.getArticles(offset).then((response) => {
       const articles = response
         ? response?.articles.map(
             (article) =>

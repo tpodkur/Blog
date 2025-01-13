@@ -1,12 +1,21 @@
 import Pagination from '../pagination/pagination.tsx';
 import Article from '../article/article.tsx';
 import { Article as ArticleType, articlesSlice } from '../../redux/articles.slice.ts';
-import { useAppSelector } from '../../redux/store.ts';
+import { useAppDispath, useAppSelector } from '../../redux/store.ts';
+import { requestArticles } from '../../shared/request-articles.ts';
 
 import classes from './article-list.module.scss';
 
 const ArticleList = () => {
+  const dispatch = useAppDispath();
   const articles: ArticleType[] = useAppSelector((state) => articlesSlice.selectors.articles(state));
+  const page = useAppSelector((state) => articlesSlice.selectors.page(state));
+
+  const onPageChange = (page: number) => {
+    dispatch(articlesSlice.actions.changePage({ page }));
+    dispatch(requestArticles());
+    scroll(0, 0);
+  };
 
   return (
     <>
@@ -18,7 +27,7 @@ const ArticleList = () => {
         ))}
       </ul>
       <div className={classes['article-list__pagination']}>
-        <Pagination page={1} onPageChange={console.log} totalItemsCount={100} />
+        <Pagination page={page} onPageChange={onPageChange} totalItemsCount={100} />
       </div>
     </>
   );

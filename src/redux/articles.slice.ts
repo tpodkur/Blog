@@ -19,12 +19,14 @@ type ArticlesState = {
   entities: Record<ArticleId, Article>;
   ids: ArticleId[];
   loading: boolean;
+  page: number;
 };
 
 const initialArticlesState: ArticlesState = {
   entities: {},
   ids: [],
   loading: true,
+  page: 1,
 };
 
 export const articlesSlice = createSlice({
@@ -39,6 +41,7 @@ export const articlesSlice = createSlice({
         return ids.map((id) => entities[id]);
       }
     ),
+    page: (state: ArticlesState) => state.page,
   },
   reducers: {
     saveArticles: (state, action: PayloadAction<{ articles: Article[] }>) => {
@@ -46,7 +49,6 @@ export const articlesSlice = createSlice({
       return {
         ...state,
         entities: {
-          ...state.entities,
           ...articles.reduce((acc: Record<ArticleId, Article>, article: Article) => {
             return {
               ...acc,
@@ -54,8 +56,15 @@ export const articlesSlice = createSlice({
             };
           }, {}),
         },
-        ids: [...state.ids, ...articles.map((a) => a.id)],
+        ids: [...articles.map((a) => a.id)],
         loading: false,
+      };
+    },
+    changePage: (state, action: PayloadAction<{ page: number }>) => {
+      const { page } = action.payload;
+      return {
+        ...state,
+        page,
       };
     },
   },
