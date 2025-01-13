@@ -20,6 +20,7 @@ type ArticlesState = {
   ids: ArticleId[];
   loading: boolean;
   page: number;
+  count: number;
 };
 
 const initialArticlesState: ArticlesState = {
@@ -27,6 +28,7 @@ const initialArticlesState: ArticlesState = {
   ids: [],
   loading: true,
   page: 1,
+  count: 0,
 };
 
 export const articlesSlice = createSlice({
@@ -42,10 +44,11 @@ export const articlesSlice = createSlice({
       }
     ),
     page: (state: ArticlesState) => state.page,
+    count: (state: ArticlesState) => state.count,
   },
   reducers: {
-    saveArticles: (state, action: PayloadAction<{ articles: Article[] }>) => {
-      const { articles } = action.payload;
+    saveArticles: (state, action: PayloadAction<{ articles: Article[]; count: number }>) => {
+      const { articles, count } = action.payload;
       return {
         ...state,
         entities: {
@@ -58,6 +61,7 @@ export const articlesSlice = createSlice({
         },
         ids: [...articles.map((a) => a.id)],
         loading: false,
+        count,
       };
     },
     changePage: (state, action: PayloadAction<{ page: number }>) => {

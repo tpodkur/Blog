@@ -10,10 +10,11 @@ const ArticleList = () => {
   const dispatch = useAppDispath();
   const articles: ArticleType[] = useAppSelector((state) => articlesSlice.selectors.articles(state));
   const page = useAppSelector((state) => articlesSlice.selectors.page(state));
+  const articlesCount = useAppSelector((state) => articlesSlice.selectors.count(state));
 
   const onPageChange = (page: number) => {
     dispatch(articlesSlice.actions.changePage({ page }));
-    dispatch(requestArticles());
+    dispatch(requestArticles(page));
     scroll(0, 0);
   };
 
@@ -27,7 +28,7 @@ const ArticleList = () => {
         ))}
       </ul>
       <div className={classes['article-list__pagination']}>
-        <Pagination page={page} onPageChange={onPageChange} totalItemsCount={100} />
+        <Pagination page={page} onPageChange={onPageChange} totalItemsCount={articlesCount} />
       </div>
     </>
   );
