@@ -5,6 +5,7 @@ export const requestArticles =
   (page: number = 1): AppThunk =>
   (dispatch, _, { api }) => {
     const offset = (page - 1) * 20;
+    dispatch(articlesSlice.actions.requestPending());
     api
       .getArticles(offset)
       .then((response) => {
@@ -26,5 +27,8 @@ export const requestArticles =
 
         dispatch(articlesSlice.actions.saveArticles({ articles, count }));
       })
-      .catch(console.log);
+      .catch((error) => {
+        console.error(error);
+        dispatch(articlesSlice.actions.requestFailed());
+      });
   };

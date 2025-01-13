@@ -18,24 +18,23 @@ export type Article = {
 type ArticlesState = {
   entities: Record<ArticleId, Article>;
   ids: ArticleId[];
-  loading: boolean;
   page: number;
   count: number;
+  requestStatus: 'idle' | 'pending' | 'success' | 'failed';
 };
 
 const initialArticlesState: ArticlesState = {
   entities: {},
   ids: [],
-  loading: true,
   page: 1,
   count: 0,
+  requestStatus: 'idle',
 };
 
 export const articlesSlice = createSlice({
   name: 'article',
   initialState: initialArticlesState,
   selectors: {
-    loading: (state: ArticlesState) => state.loading,
     articles: createSelector(
       (state: ArticlesState) => state.entities,
       (state: ArticlesState) => state.ids,
@@ -45,6 +44,9 @@ export const articlesSlice = createSlice({
     ),
     page: (state: ArticlesState) => state.page,
     count: (state: ArticlesState) => state.count,
+    isRequestPending: (state: ArticlesState) => state.requestStatus === 'pending',
+    isRequestFailed: (state: ArticlesState) => state.requestStatus === 'failed',
+    isRequestSuccess: (state: ArticlesState) => state.requestStatus === 'success',
   },
   reducers: {
     saveArticles: (state, action: PayloadAction<{ articles: Article[]; count: number }>) => {
@@ -60,7 +62,7 @@ export const articlesSlice = createSlice({
           }, {}),
         },
         ids: [...articles.map((a) => a.id)],
-        loading: false,
+        requestStatus: 'success',
         count,
       };
     },
@@ -69,6 +71,18 @@ export const articlesSlice = createSlice({
       return {
         ...state,
         page,
+      };
+    },
+    requestPending: (state) => {
+      return {
+        ...state,
+        requestStatus: 'pending',
+      };
+    },
+    requestFailed: (state) => {
+      return {
+        ...state,
+        requestStatus: 'failed',
       };
     },
   },
