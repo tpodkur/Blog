@@ -13,7 +13,7 @@ export const requestArticles =
             ({
               id: article.slug,
               title: article.title,
-              tags: article.tagList,
+              tags: article.tagList || [],
               text: article.body ? article.body : '',
               author: article.author.username,
               avatar: article.author.image,

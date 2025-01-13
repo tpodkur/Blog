@@ -36,11 +36,13 @@ const Article = ({ title, tags, text, author, avatar, date, favorited, favorites
           </div>
         </div>
         <ul className={classes['tags-list']}>
-          {tags.map((tag, ind) => (
-            <li className={classes.tag} key={ind}>
-              {tag}
-            </li>
-          ))}
+          {tags
+            .filter((tag) => !!tag.trim().length)
+            .map((tag, ind) => (
+              <li className={classes.tag} key={ind}>
+                {tag}
+              </li>
+            ))}
         </ul>
         <p className={classes.article__text}>{shortText}</p>
       </div>
