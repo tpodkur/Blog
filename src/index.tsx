@@ -1,9 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
 
-import App from './components/app/app.tsx';
 import store from './redux/store.ts';
+import { router } from './router.tsx';
 import { requestArticles } from './shared/request-articles.ts';
 
 store.dispatch(requestArticles());
@@ -11,7 +12,7 @@ store.dispatch(requestArticles());
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>
 );

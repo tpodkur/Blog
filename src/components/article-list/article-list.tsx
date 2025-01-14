@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Pagination from '../pagination/pagination.tsx';
 import Article from '../article/article.tsx';
 import Spinner from '../spinner/spinner.tsx';
@@ -32,11 +34,15 @@ const ArticleList = () => {
   const content = (
     <>
       <ul className={classes['article-list']}>
-        {articles.map((article) => (
-          <li className={classes.article} key={article.id}>
-            <Article {...article} />
-          </li>
-        ))}
+        {articles.map((article) => {
+          return (
+            <li className={classes.article} key={article.id}>
+              <Link to={`/articles/${article.id}`} className={classes.link}>
+                <Article {...article} />
+              </Link>
+            </li>
+          );
+        })}
       </ul>
       <div className={classes['article-list__pagination']}>
         <Pagination page={page} onPageChange={onPageChange} totalItemsCount={articlesCount} />
