@@ -33,7 +33,7 @@ export const api = {
 
   getArticleById: async (articleId: string) => {
     return await axios.get(`${baseURL}/articles/${articleId}`).then((response) => {
-      return ArticleDto.parse(response.data);
+      return ArticleDto.parse(response.data.article);
     });
   },
 };

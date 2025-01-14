@@ -20,7 +20,8 @@ type ArticlesState = {
   ids: ArticleId[];
   page: number;
   count: number;
-  requestStatus: 'idle' | 'pending' | 'success' | 'failed';
+  requestArticlesStatus: 'idle' | 'pending' | 'success' | 'failed';
+  requestArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
 };
 
 const initialArticlesState: ArticlesState = {
@@ -28,7 +29,8 @@ const initialArticlesState: ArticlesState = {
   ids: [],
   page: 1,
   count: 0,
-  requestStatus: 'idle',
+  requestArticlesStatus: 'idle',
+  requestArticleStatus: 'idle',
 };
 
 export const articlesSlice = createSlice({
@@ -45,9 +47,12 @@ export const articlesSlice = createSlice({
     page: (state) => state.page,
     count: (state) => state.count,
     articleById: (state, articleId: string) => state.entities[articleId],
-    isRequestPending: (state) => state.requestStatus === 'pending',
-    isRequestFailed: (state) => state.requestStatus === 'failed',
-    isRequestSuccess: (state) => state.requestStatus === 'success',
+    isRequestArticlesPending: (state) => state.requestArticlesStatus === 'pending',
+    isRequestArticlesFailed: (state) => state.requestArticlesStatus === 'failed',
+    isRequestArticlesSuccess: (state) => state.requestArticlesStatus === 'success',
+    isRequestArticlePending: (state) => state.requestArticleStatus === 'pending',
+    isRequestArticleFailed: (state) => state.requestArticleStatus === 'failed',
+    isRequestArticleSuccess: (state) => state.requestArticleStatus === 'success',
   },
   reducers: {
     saveArticles: (state, action: PayloadAction<{ articles: Article[]; count: number }>) => {
@@ -63,7 +68,7 @@ export const articlesSlice = createSlice({
           }, {}),
         },
         ids: [...articles.map((a) => a.id)],
-        requestStatus: 'success',
+        requestArticlesStatus: 'success',
         count,
       };
     },
@@ -74,16 +79,40 @@ export const articlesSlice = createSlice({
         page,
       };
     },
-    requestPending: (state) => {
+    requestArticlesPending: (state) => {
       return {
         ...state,
-        requestStatus: 'pending',
+        requestArticlesStatus: 'pending',
       };
     },
-    requestFailed: (state) => {
+    requestArticlesFailed: (state) => {
       return {
         ...state,
-        requestStatus: 'failed',
+        requestArticlesStatus: 'failed',
+      };
+    },
+    saveArticle: (state, action: PayloadAction<{ article: Article }>) => {
+      const { article } = action.payload;
+      return {
+        ...state,
+        requestArticleStatus: 'success',
+        entities: {
+          ...state.entities,
+          [article.id]: article,
+        },
+        ids: [...state.ids, article.id],
+      };
+    },
+    requestArticlePending: (state) => {
+      return {
+        ...state,
+        requestArticleStatus: 'pending',
+      };
+    },
+    requestArticleFailed: (state) => {
+      return {
+        ...state,
+        requestArticleStatus: 'failed',
       };
     },
   },

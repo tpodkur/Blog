@@ -15,9 +15,9 @@ const ArticleList = () => {
   const page = useAppSelector((state) => articlesSlice.selectors.page(state));
   const articlesCount = useAppSelector((state) => articlesSlice.selectors.count(state));
 
-  const isRequestPending = useAppSelector((state) => articlesSlice.selectors.isRequestPending(state));
-  const isRequestFailed = useAppSelector((state) => articlesSlice.selectors.isRequestFailed(state));
-  const isRequestSuccess = useAppSelector((state) => articlesSlice.selectors.isRequestSuccess(state));
+  const isRequestPending = useAppSelector((state) => articlesSlice.selectors.isRequestArticlesPending(state));
+  const isRequestFailed = useAppSelector((state) => articlesSlice.selectors.isRequestArticlesFailed(state));
+  const isRequestSuccess = useAppSelector((state) => articlesSlice.selectors.isRequestArticlesSuccess(state));
 
   const onPageChange = (page: number) => {
     dispatch(articlesSlice.actions.changePage({ page }));

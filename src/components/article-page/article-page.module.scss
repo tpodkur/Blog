@@ -1,0 +1,14 @@
+.article-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__article {
+    margin-top: 26px;
+    width: 60%;
+  }
+
+  &__spinner {
+    margin-top: 100px;
+  }
+}
