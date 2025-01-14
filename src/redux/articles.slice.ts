@@ -42,11 +42,12 @@ export const articlesSlice = createSlice({
         return ids.map((id) => entities[id]);
       }
     ),
-    page: (state: ArticlesState) => state.page,
-    count: (state: ArticlesState) => state.count,
-    isRequestPending: (state: ArticlesState) => state.requestStatus === 'pending',
-    isRequestFailed: (state: ArticlesState) => state.requestStatus === 'failed',
-    isRequestSuccess: (state: ArticlesState) => state.requestStatus === 'success',
+    page: (state) => state.page,
+    count: (state) => state.count,
+    articleById: (state, articleId: string) => state.entities[articleId],
+    isRequestPending: (state) => state.requestStatus === 'pending',
+    isRequestFailed: (state) => state.requestStatus === 'failed',
+    isRequestSuccess: (state) => state.requestStatus === 'success',
   },
   reducers: {
     saveArticles: (state, action: PayloadAction<{ articles: Article[]; count: number }>) => {
