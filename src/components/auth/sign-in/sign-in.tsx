@@ -22,6 +22,17 @@ const SignIn = () => {
         Repeat password
         <input type="password" name="repeat-password" placeholder="Repeat password" className={classes.auth__input} />
       </label>
+      <label className={`${classes.auth__permission} ${classes.permission}`}>
+        <input
+          type="checkbox"
+          name="agree-checkbox"
+          id="agree-checkbox"
+          className={classes.permission__input}
+          checked
+        />
+        <span className={classes.permission__checkbox}></span>
+        <span className={classes.permission__text}>I agree to the processing of my personal information</span>
+      </label>
       <input type="submit" value="Create" className={classes.auth__submit} />
       <p className={classes.auth__message}>
         Already have an account?{' '}
