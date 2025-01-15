@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { z } from 'zod';
 
-import { Article } from '../redux/articles.slice.ts';
+import { Article } from '../components/articles/articles.slice.ts';
 
 const baseURL = 'https://blog-platform.kata.academy/api';
 

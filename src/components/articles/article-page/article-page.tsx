@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import { useAppDispath, useAppSelector } from '../../redux/store.ts';
-import { ArticleId, articlesSlice } from '../../redux/articles.slice.ts';
-import { requestArticle } from '../../shared/article-thunks.ts';
+import { useAppDispath, useAppSelector } from '../../../store.ts';
+import { ArticleId, articlesSlice } from '../articles.slice.ts';
+import { requestArticle } from '../articles-thunks.ts';
 import Article from '../article/article.tsx';
-import Spinner from '../spinner/spinner.tsx';
+import Spinner from '../../spinner/spinner.tsx';
 
 import classes from './article-page.module.scss';
 

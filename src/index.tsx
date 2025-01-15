@@ -3,9 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
-import store from './redux/store.ts';
-import { router } from './router.tsx';
-import { requestArticles } from './shared/article-thunks.ts';
+import store from './store.ts';
+import router from './router.tsx';
+import { requestArticles } from './components/articles/articles-thunks.ts';
 
 store.dispatch(requestArticles());
 

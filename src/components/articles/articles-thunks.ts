@@ -1,5 +1,6 @@
-import { AppThunk } from '../redux/store.ts';
-import { articlesSlice, ArticleId } from '../redux/articles.slice.ts';
+import { AppThunk } from '../../store.ts';
+
+import { articlesSlice, ArticleId } from './articles.slice.ts';
 
 export const requestArticles =
   (page: number = 1): AppThunk =>

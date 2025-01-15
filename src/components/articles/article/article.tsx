@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-import { Article as ArticleType } from '../../redux/articles.slice.ts';
+import { Article as ArticleType } from '../articles.slice.ts';
 
 import classes from './article.module.scss';
 

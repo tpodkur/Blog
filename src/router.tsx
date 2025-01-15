@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router';
 
 import App from './components/app/app.tsx';
-import ArticleList from './components/article-list/article-list.tsx';
-import ArticlePage from './components/article-page/article-page.tsx';
+import ArticleList from './components/articles/article-list/article-list.tsx';
+import ArticlePage from './components/articles/article-page/article-page.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -20,3 +20,5 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+export default router;

@@ -3,9 +3,8 @@ import type { UnknownAction } from '@reduxjs/toolkit';
 import type { ThunkAction } from 'redux-thunk';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { api } from '../shared/api.ts';
-
-import { articlesSlice } from './articles.slice.ts';
+import { api } from './shared/api.ts';
+import { articlesSlice } from './components/articles/articles.slice.ts';
 
 const extraArgument = {
   api,

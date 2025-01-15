@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 
-import Pagination from '../pagination/pagination.tsx';
+import { useAppDispath, useAppSelector } from '../../../store.ts';
+import { Article as ArticleType, articlesSlice } from '../articles.slice.ts';
+import { requestArticles } from '../articles-thunks.ts';
+import Pagination from '../../pagination/pagination.tsx';
+import Spinner from '../../spinner/spinner.tsx';
 import Article from '../article/article.tsx';
-import Spinner from '../spinner/spinner.tsx';
-import { Article as ArticleType, articlesSlice } from '../../redux/articles.slice.ts';
-import { useAppDispath, useAppSelector } from '../../redux/store.ts';
-import { requestArticles } from '../../shared/article-thunks.ts';
 
 import classes from './article-list.module.scss';
 
