@@ -1,36 +1,81 @@
 .auth {
-  min-width: 384px;
+  min-width: 370px;
+  width: 40%;
+  margin: 60px auto 0 auto;
+  padding: 48px 32px;
   display: flex;
   flex-direction: column;
+  background: white;
+  box-shadow: 0 4px 12px 0 #00000026;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  color: #262626;
 
   &__title {
-
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    align-self: center;
   }
 
   &__label {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 22px;
 
-    &--checkbox {
-
+    &:first-child {
+      margin-top: 21px;
     }
   }
 
   &__input {
+    height: 40px;
+    border: solid 1px #D9D9D9;
+    border-radius: 4px;
+    padding: 8px 12px;
 
+    &:focus {
+      outline: none;
+      border: solid 1px #1890FF;
+    }
   }
 
-  &__checkbox {
-
+  &__permission {
+    margin-top: 21px;
   }
 
   &__submit {
+    margin-top: 21px;
+    height: 40px;
+    background-color: #1890FF;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    line-height: 24px;
 
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
   }
 
   &__message {
-
+    margin-top: 10px;
+    text-align: center;
+    color: #8C8C8C;
   }
 
   &__link {
+    text-decoration: none;
+    color: #1890FF;
 
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
   }
 }

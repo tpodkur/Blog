@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import classes from '../auth.module.scss';
 
 const SignIn = () => {
@@ -20,13 +22,12 @@ const SignIn = () => {
         Repeat password
         <input type="password" name="repeat-password" placeholder="Repeat password" className={classes.auth__input} />
       </label>
-      <label className={`${classes.auth__label} ${classes['auth__label--checkbox']}`}>
-        <input type="checkbox" name="agree-checkbox" className={classes.auth__checkbox} />I agree to the processing of
-        my personal information
-      </label>
       <input type="submit" value="Create" className={classes.auth__submit} />
       <p className={classes.auth__message}>
-        Already have an account? <a className={classes.auth__link}>Sign In </a>
+        Already have an account?{' '}
+        <Link to="/sign-up" className={classes.auth__link}>
+          Sign In.
+        </Link>
       </p>
     </form>
   );

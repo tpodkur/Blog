@@ -31,6 +31,26 @@ li {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Roboto';
+  src:
+          local('Roboto'),
+          local('Roboto'),
+          url('../../fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src:
+          local('Roboto'),
+          local('Roboto'),
+          url('../../fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: #EBEEF3;
   font-family: 'Inter', sans-serif;

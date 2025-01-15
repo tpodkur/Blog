@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import classes from '../auth.module.scss';
 
 const SignUp = () => {
@@ -14,7 +16,10 @@ const SignUp = () => {
       </label>
       <input type="submit" value="Login" className={classes.auth__submit} />
       <p className={classes.auth__message}>
-        Don&#39;t have an account? <a className={classes.auth__link}>Sign Up </a>
+        Don&#39;t have an account?{' '}
+        <Link to="/sign-in" className={classes.auth__link}>
+          Sign Up.
+        </Link>
       </p>
     </form>
   );
