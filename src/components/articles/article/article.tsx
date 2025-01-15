@@ -30,7 +30,7 @@ const Article = ({ title, tags, text, author, avatar, date, favorited, favorites
           <h3 className={classes.article__title}>{title}</h3>
           <div className={`${classes.article__likes} ${classes.likes}`}>
             <button className={classes.likes__logo}>
-              <img src={favorited ? './src/assets/like--active.svg' : './src/assets/like.svg'} />
+              <img src={favorited ? '/src/assets/like--active.svg' : '/src/assets/like.svg'} />
             </button>
             <span className={classes.likes__count}>{favoritesCount}</span>
           </div>
@@ -53,7 +53,7 @@ const Article = ({ title, tags, text, author, avatar, date, favorited, favorites
         </div>
         <img
           className={classes.user__avatar}
-          src={hasError ? './src/assets/user.png' : avatar}
+          src={hasError ? '/src/assets/user.png' : avatar}
           alt="user avatar"
           onError={() => setHasError(!hasError)}
         />
