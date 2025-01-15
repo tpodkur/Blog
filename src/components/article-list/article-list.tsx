@@ -5,7 +5,7 @@ import Article from '../article/article.tsx';
 import Spinner from '../spinner/spinner.tsx';
 import { Article as ArticleType, articlesSlice } from '../../redux/articles.slice.ts';
 import { useAppDispath, useAppSelector } from '../../redux/store.ts';
-import { requestArticles } from '../../shared/request-articles.ts';
+import { requestArticles } from '../../shared/article-thunks.ts';
 
 import classes from './article-list.module.scss';
 

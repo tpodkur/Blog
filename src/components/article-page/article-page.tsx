@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 
 import { useAppDispath, useAppSelector } from '../../redux/store.ts';
 import { ArticleId, articlesSlice } from '../../redux/articles.slice.ts';
+import { requestArticle } from '../../shared/article-thunks.ts';
 import Article from '../article/article.tsx';
-import { requestArticle } from '../../shared/request-article.ts';
 import Spinner from '../spinner/spinner.tsx';
 
 import classes from './article-page.module.scss';

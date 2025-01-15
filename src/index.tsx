@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import store from './redux/store.ts';
 import { router } from './router.tsx';
-import { requestArticles } from './shared/request-articles.ts';
+import { requestArticles } from './shared/article-thunks.ts';
 
 store.dispatch(requestArticles());
 
