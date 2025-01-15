@@ -61,6 +61,11 @@
       cursor: pointer;
       opacity: 0.7;
     }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 0.1em #595959;
+    }
   }
 
   &__message {
@@ -76,6 +81,12 @@
     &:hover {
       cursor: pointer;
       opacity: 0.7;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 0.1em #595959;
+      border-radius: 2px;
     }
   }
 }
