@@ -38,7 +38,7 @@ const ArticleList = () => {
           return (
             <li className={classes.article} key={article.id}>
               <Link to={`/articles/${article.id}`} className={classes.link}>
-                <Article {...article} />
+                <Article article={article} smallSize={true} />
               </Link>
             </li>
           );

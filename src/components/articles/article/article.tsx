@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
+import Markdown from 'markdown-to-jsx';
 
 import { Article as ArticleType } from '../articles.slice.ts';
 
 import classes from './article.module.scss';
 
-const Article = ({ title, tags, text, author, avatar, date, favorited, favoritesCount }: ArticleType) => {
+type ArticleProps = {
+  article: ArticleType;
+  smallSize: boolean;
+};
+
+const Article = ({ article, smallSize }: ArticleProps) => {
   const [hasError, setHasError] = useState(false);
+  const { title, tags, text, author, avatar, date, favorited, favoritesCount } = article;
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
     if (linesCount <= 0) return '';
@@ -44,7 +51,7 @@ const Article = ({ title, tags, text, author, avatar, date, favorited, favorites
               </li>
             ))}
         </ul>
-        <p className={classes.article__text}>{shortText}</p>
+        <Markdown className={classes.article__text}>{smallSize ? shortText : text}</Markdown>
       </div>
       <div className={classes.user}>
         <div className={classes.user__label}>
