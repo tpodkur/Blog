@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { useAppDispath, useAppSelector } from '../../../store.ts';
 import { Article as ArticleType, articlesSlice } from '../articles.slice.ts';
 import { requestArticles } from '../articles-thunks.ts';
@@ -37,9 +35,7 @@ const ArticleList = () => {
         {articles.map((article) => {
           return (
             <li className={classes.article} key={article.id}>
-              <Link to={`/articles/${article.id}`} className={classes.link}>
-                <Article article={article} smallSize={true} />
-              </Link>
+              <Article article={article} smallSize={true} />
             </li>
           );
         })}

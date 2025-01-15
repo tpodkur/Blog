@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 import Markdown from 'markdown-to-jsx';
+import { Link } from 'react-router-dom';
 
 import { Article as ArticleType } from '../articles.slice.ts';
 
@@ -34,13 +35,15 @@ const Article = ({ article, smallSize }: ArticleProps) => {
     <div className={classes.article}>
       <div className={classes.article__content}>
         <div className={classes.article__header}>
-          <h3 className={classes.article__title}>{title}</h3>
-          <div className={`${classes.article__likes} ${classes.likes}`}>
-            <button className={classes.likes__logo}>
+          <Link to={`/articles/${article.id}`} className={classes.link}>
+            <h3 className={classes.article__title}>{title}</h3>
+          </Link>
+          <button className={`${classes.article__likes} ${classes.likes}`} disabled={true}>
+            <span className={classes.likes__logo}>
               <img src={favorited ? '/src/assets/like--active.svg' : '/src/assets/like.svg'} />
-            </button>
+            </span>
             <span className={classes.likes__count}>{favoritesCount}</span>
-          </div>
+          </button>
         </div>
         <ul className={classes['tags-list']}>
           {tags
