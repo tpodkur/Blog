@@ -100,7 +100,6 @@ export const articlesSlice = createSlice({
           ...state.entities,
           [article.id]: article,
         },
-        ids: [...state.ids, article.id],
       };
     },
     requestArticlePending: (state) => {
