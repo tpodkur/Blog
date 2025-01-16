@@ -5,9 +5,6 @@ import { RouterProvider } from 'react-router-dom';
 
 import store from './store.ts';
 import router from './router.tsx';
-import { requestArticles } from './components/articles/articles-thunks.ts';
-
-store.dispatch(requestArticles());
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
