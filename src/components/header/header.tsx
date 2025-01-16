@@ -5,7 +5,9 @@ import classes from './header.module.scss';
 const Header = () => {
   return (
     <header className={classes.header}>
-      <span className={classes.header__title}>Realworld Blog</span>
+      <Link to="/" className={classes.header__title}>
+        Realworld Blog
+      </Link>
       <div>
         <Link to="sign-in">
           <button className={classes['login-button']}>Sign In</button>
