@@ -1,0 +1,26 @@
+.user {
+  display: flex;
+  align-items: center;
+
+  &__label {
+    margin-right: 12px;
+    text-align: right;
+  }
+
+  &__name {
+    font-size: 18px;
+    opacity: 0.75;
+  }
+
+  &__avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+  }
+}
+
+.date {
+  font-size: 12px;
+  line-height: 22px;
+  opacity: 0.5;
+}

@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { format } from 'date-fns';
 import Markdown from 'markdown-to-jsx';
 import { Link } from 'react-router-dom';
 
+import UserInfo from '../../user-info/user-info.tsx';
 import { Article as ArticleType } from '../articles.slice.ts';
 
 import classes from './article.module.scss';
@@ -13,7 +12,6 @@ type ArticleProps = {
 };
 
 const Article = ({ article, smallSize }: ArticleProps) => {
-  const [hasError, setHasError] = useState(false);
   const { title, tags, text, author, avatar, date, favorited, favoritesCount } = article;
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
@@ -56,17 +54,8 @@ const Article = ({ article, smallSize }: ArticleProps) => {
         </ul>
         <Markdown className={classes.article__text}>{smallSize ? shortText : text}</Markdown>
       </div>
-      <div className={classes.user}>
-        <div className={classes.user__label}>
-          <p className={classes.user__name}>{author}</p>
-          <p className={classes.date}>{format(new Date(date), 'PP')}</p>
-        </div>
-        <img
-          className={classes.user__avatar}
-          src={hasError ? '/src/assets/user.png' : avatar}
-          alt="user avatar"
-          onError={() => setHasError(!hasError)}
-        />
+      <div>
+        <UserInfo author={author} avatar={avatar} date={date} />
       </div>
     </div>
   );

@@ -64,32 +64,6 @@
   text-overflow: ellipsis;
 }
 
-.user {
-  display: flex;
-
-  &__label {
-    margin: 5px 12px 0 0;
-    text-align: right;
-  }
-
-  &__name {
-    font-size: 18px;
-    opacity: 0.75;
-  }
-
-  &__avatar {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-  }
-}
-
-.date {
-  font-size: 12px;
-  line-height: 22px;
-  opacity: 0.5;
-}
-
 .likes {
   display: flex;
   align-items: center;

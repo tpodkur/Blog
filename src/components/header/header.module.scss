@@ -17,27 +17,46 @@
 .login {
   display: flex;
   column-gap: 19px;
+}
 
-  &__button {
-    width: 109px;
-    height: 51px;
-    padding-top: 8px;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    line-height: 28px;
+.profile {
+  display: flex;
+  column-gap: 27px;
+  align-items: center;
+}
+
+.button {
+  width: 109px;
+  height: 51px;
+  padding-top: 9px;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
     cursor: pointer;
-    text-align: center;
+    opacity: 0.7;
+  }
 
-    &:hover {
-      cursor: pointer;
-      opacity: 0.7;
-    }
+  &--bordered {
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+  }
 
-    &--accent {
-      border: 1px solid #52C41A;
-      border-radius: 5px;
-      color: #52C41A;
-    }
+  &--accent {
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    color: #52C41A;
+  }
+
+  &--small {
+    width: 112px;
+    height: 32px;
+    padding-top: 4px;
+    font-size: 14px;
+    line-height: 22px;
   }
 }
 
