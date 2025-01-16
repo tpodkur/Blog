@@ -33,14 +33,24 @@ const SignIn = () => {
       <h1 className={classes.auth__title}>Sign In</h1>
       <label className={classes.auth__label}>
         Email address
-        <input type="email" placeholder="Email address" className={classes.auth__input} {...register('email')} />
-        {errors.email && <p>{errors?.email?.message}</p>}
+        <input
+          type="email"
+          placeholder="Email address"
+          className={`${classes.auth__input} ${errors.email && classes['auth__input--not-valid']}`}
+          {...register('email')}
+        />
+        {errors.email && <p className={classes['auth__validation-message']}>{errors?.email?.message}</p>}
       </label>
       <label className={classes.auth__label}>
         Password
-        <input type="password" placeholder="Password" className={classes.auth__input} {...register('password')} />
+        <input
+          type="password"
+          placeholder="Password"
+          className={`${classes.auth__input} ${errors.password && classes['auth__input--not-valid']}`}
+          {...register('password')}
+        />
       </label>
-      {errors.password && <p>{errors?.password?.message}</p>}
+      {errors.password && <p className={classes['auth__validation-message']}>{errors?.password?.message}</p>}
       <input type="submit" value="Login" className={classes.auth__submit} disabled={!isValid} />
       <p className={classes.auth__message}>
         Don&#39;t have an account?{' '}
