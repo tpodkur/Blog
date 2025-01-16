@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         path: 'articles/:articleId',
         Component: ArticlePage,
         loader: ({ params }) => {
-          store.dispatch(requestArticle(params.id ?? ''));
+          store.dispatch(requestArticle(params.articleId ?? ''));
           return null;
         },
       },
