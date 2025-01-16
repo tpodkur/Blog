@@ -19,7 +19,7 @@ const ArticleList = () => {
 
   const onPageChange = (page: number) => {
     dispatch(articlesSlice.actions.changePage({ page }));
-    dispatch(requestArticles(page));
+    dispatch(requestArticles({ refetch: true }));
     scroll(0, 0);
   };
 

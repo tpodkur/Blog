@@ -47,6 +47,7 @@ export const articlesSlice = createSlice({
     page: (state) => state.page,
     count: (state) => state.count,
     articleById: (state, articleId: string) => state.entities[articleId],
+    isRequestArticlesIdle: (state) => state.requestArticlesStatus === 'idle',
     isRequestArticlesPending: (state) => state.requestArticlesStatus === 'pending',
     isRequestArticlesFailed: (state) => state.requestArticlesStatus === 'failed',
     isRequestArticlesSuccess: (state) => state.requestArticlesStatus === 'success',
