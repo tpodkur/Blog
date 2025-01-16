@@ -8,12 +8,12 @@ const Header = () => {
       <Link to="/" className={classes.header__title}>
         Realworld Blog
       </Link>
-      <div>
-        <Link to="sign-in">
-          <button className={classes['login-button']}>Sign In</button>
+      <div className={classes.login}>
+        <Link to="sign-in" className={classes.link}>
+          <div className={classes['login__button']}>Sign In</div>
         </Link>
-        <Link to="sign-up">
-          <button className={`${classes['login-button']} ${classes['login-button--accent']}`}>Sign Up</button>
+        <Link to="sign-up" className={classes.link}>
+          <div className={`${classes['login__button']} ${classes['login__button--accent']}`}>Sign Up</div>
         </Link>
       </div>
     </header>

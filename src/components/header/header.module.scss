@@ -14,29 +14,34 @@
   }
 }
 
-.login-button {
-  width: 109px;
-  height: 51px;
-  border: none;
-  background-color: transparent;
-  font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  line-height: 28px;
-  cursor: pointer;
+.login {
+  display: flex;
+  column-gap: 19px;
 
-  &:first-child {
-    margin-right: 19px;
-  }
-
-  &:hover {
+  &__button {
+    width: 109px;
+    height: 51px;
+    padding-top: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 28px;
     cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.5s;
-  }
+    text-align: center;
 
-  &--accent {
-    border: 1px solid #52C41A;
-    border-radius: 5px;
-    color: #52C41A;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    &--accent {
+      border: 1px solid #52C41A;
+      border-radius: 5px;
+      color: #52C41A;
+    }
   }
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
 }
