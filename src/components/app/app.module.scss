@@ -55,3 +55,11 @@ body {
   background-color: #EBEEF3;
   font-family: 'Inter', sans-serif;
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow:0 0 0 50px white inset;
+
+  &:focus {
+    -webkit-box-shadow: 0 0 0 50px white inset;
+  }
+}

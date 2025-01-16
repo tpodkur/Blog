@@ -11,8 +11,8 @@ type FormValues = {
 };
 
 const SignInSchema: ZodType<FormValues> = z.object({
-  email: z.string().min(1, { message: 'This is required' }).email({ message: 'Must be a valid email' }),
-  password: z.string().min(1, { message: 'This is required' }),
+  email: z.string().min(1, { message: 'This is required.' }).email({ message: 'Must be a valid email.' }),
+  password: z.string().min(1, { message: 'This is required.' }),
 });
 
 const SignIn = () => {
