@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
 import { useState } from 'react';
 
-import classes from '../auth.module.scss';
+import classes from '../../form.module.scss';
 
 type FormValues = {
   username: string;
@@ -53,51 +53,51 @@ const SignUp = () => {
   const onCheckboxChange = () => setChecked((prev) => !prev);
 
   return (
-    <form method="post" onSubmit={onSubmit} className={classes.auth}>
-      <h1 className={classes.auth__title}>Create new account</h1>
-      <label className={classes.auth__label}>
+    <form method="post" onSubmit={onSubmit} className={classes.form}>
+      <h1 className={classes.form__title}>Create new account</h1>
+      <label className={classes.form__label}>
         Username
         <input
           type="text"
           placeholder="Username"
-          className={`${classes.auth__input} ${errors.username && classes['auth__input--not-valid']}`}
+          className={`${classes.form__input} ${errors.username && classes['form__input--not-valid']}`}
           {...register('username')}
         />
       </label>
-      {errors.username && <p className={classes['auth__validation-message']}>{errors?.username?.message}</p>}
-      <label className={classes.auth__label}>
+      {errors.username && <p className={classes['form__validation-message']}>{errors?.username?.message}</p>}
+      <label className={classes.form__label}>
         Email address
         <input
           type="email"
           placeholder="Email address"
-          className={`${classes.auth__input} ${errors.email && classes['auth__input--not-valid']}`}
+          className={`${classes.form__input} ${errors.email && classes['form__input--not-valid']}`}
           {...register('email')}
         />
       </label>
-      {errors.email && <p className={classes['auth__validation-message']}>{errors?.email?.message}</p>}
-      <label className={classes.auth__label}>
+      {errors.email && <p className={classes['form__validation-message']}>{errors?.email?.message}</p>}
+      <label className={classes.form__label}>
         Password
         <input
           type="password"
           placeholder="Password"
-          className={`${classes.auth__input} ${errors.password && classes['auth__input--not-valid']}`}
+          className={`${classes.form__input} ${errors.password && classes['form__input--not-valid']}`}
           {...register('password')}
         />
       </label>
-      {errors.password && <p className={classes['auth__validation-message']}>{errors?.password?.message}</p>}
-      <label className={classes.auth__label}>
+      {errors.password && <p className={classes['form__validation-message']}>{errors?.password?.message}</p>}
+      <label className={classes.form__label}>
         Repeat password
         <input
           type="password"
           placeholder="Repeat password"
-          className={`${classes.auth__input} ${errors.confirmPassword && classes['auth__input--not-valid']}`}
+          className={`${classes.form__input} ${errors.confirmPassword && classes['form__input--not-valid']}`}
           {...register('confirmPassword')}
         />
       </label>
       {errors.confirmPassword && (
-        <p className={classes['auth__validation-message']}>{errors?.confirmPassword?.message}</p>
+        <p className={classes['form__validation-message']}>{errors?.confirmPassword?.message}</p>
       )}
-      <label className={`${classes.auth__permission} ${classes.permission}`}>
+      <label className={`${classes.form__permission} ${classes.permission}`}>
         <input
           type="checkbox"
           className={classes.permission__input}
@@ -108,11 +108,11 @@ const SignUp = () => {
         <span className={classes.permission__checkbox}></span>
         <span className={classes.permission__text}>I agree to the processing of my personal information</span>
       </label>
-      {errors.permission && <p className={classes['auth__validation-message']}>{errors?.permission?.message}</p>}
-      <input type="submit" value="Create" className={classes.auth__submit} />
-      <p className={classes.auth__message}>
+      {errors.permission && <p className={classes['form__validation-message']}>{errors?.permission?.message}</p>}
+      <input type="submit" value="Create" className={classes.form__submit} />
+      <p className={classes.form__message}>
         Already have an account?{' '}
-        <Link to="/sign-in" className={classes.auth__link}>
+        <Link to="/sign-in" className={classes.form__link}>
           Sign In.
         </Link>
       </p>

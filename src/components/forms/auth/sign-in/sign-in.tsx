@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
 
-import classes from '../auth.module.scss';
+import classes from '../../form.module.scss';
 
 type FormValues = {
   email: string;
@@ -29,32 +29,32 @@ const SignIn = () => {
   });
 
   return (
-    <form method="post" onSubmit={onSubmit} className={classes.auth}>
-      <h1 className={classes.auth__title}>Sign In</h1>
-      <label className={classes.auth__label}>
+    <form method="post" onSubmit={onSubmit} className={classes.form}>
+      <h1 className={classes.form__title}>Sign In</h1>
+      <label className={classes.form__label}>
         Email address
         <input
           type="email"
           placeholder="Email address"
-          className={`${classes.auth__input} ${errors.email && classes['auth__input--not-valid']}`}
+          className={`${classes.form__input} ${errors.email && classes['form__input--not-valid']}`}
           {...register('email')}
         />
-        {errors.email && <p className={classes['auth__validation-message']}>{errors?.email?.message}</p>}
+        {errors.email && <p className={classes['form__validation-message']}>{errors?.email?.message}</p>}
       </label>
-      <label className={classes.auth__label}>
+      <label className={classes.form__label}>
         Password
         <input
           type="password"
           placeholder="Password"
-          className={`${classes.auth__input} ${errors.password && classes['auth__input--not-valid']}`}
+          className={`${classes.form__input} ${errors.password && classes['form__input--not-valid']}`}
           {...register('password')}
         />
       </label>
-      {errors.password && <p className={classes['auth__validation-message']}>{errors?.password?.message}</p>}
-      <input type="submit" value="Login" className={classes.auth__submit} disabled={!isValid} />
-      <p className={classes.auth__message}>
+      {errors.password && <p className={classes['form__validation-message']}>{errors?.password?.message}</p>}
+      <input type="submit" value="Login" className={classes.form__submit} disabled={!isValid} />
+      <p className={classes.form__message}>
         Don&#39;t have an account?{' '}
-        <Link to="/sign-up" className={classes.auth__link}>
+        <Link to="/sign-up" className={classes.form__link}>
           Sign Up.
         </Link>
       </p>
