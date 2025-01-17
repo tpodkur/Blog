@@ -11,7 +11,9 @@ const Header = () => {
   const profile = (
     <div className={classes.profile}>
       <Link to="create-article" className={classes.link}>
-        <div className={`${classes.button} ${classes['button--accent']} ${classes['button--small']}`}>Sign In</div>
+        <div className={`${classes.button} ${classes['button--accent']} ${classes['button--small']}`}>
+          Create article
+        </div>
       </Link>
       {/*TODO get values from store*/}
       <UserInfo author={'John Doe'} avatar={'a'} />
