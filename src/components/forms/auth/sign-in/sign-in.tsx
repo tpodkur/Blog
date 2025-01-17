@@ -18,10 +18,10 @@ const SignInSchema: ZodType<FormValues> = z.object({
 const SignIn = () => {
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<FormValues>({ resolver: zodResolver(SignInSchema), mode: 'onBlur' });
+  } = useForm<FormValues>({ resolver: zodResolver(SignInSchema), mode: 'onSubmit' });
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
@@ -51,7 +51,7 @@ const SignIn = () => {
         />
       </label>
       {errors.password && <p className={classes['form__validation-message']}>{errors?.password?.message}</p>}
-      <input type="submit" value="Login" className={classes.form__submit} disabled={!isValid} />
+      <input type="submit" value="Login" className={classes.form__submit} />
       <p className={classes.form__message}>
         Don&#39;t have an account?{' '}
         <Link to="/sign-up" className={classes.form__link}>

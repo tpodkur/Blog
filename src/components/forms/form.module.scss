@@ -50,6 +50,10 @@
         border-color: #F5222D;
       }
     }
+
+    &::placeholder {
+      color: #BFBFBF;
+    }
   }
 
   &__permission {
