@@ -123,20 +123,13 @@
       background-color: #1890FF;
     }
 
-    &:checked + .permission__checkbox::before, &:checked + .permission__checkbox::after {
-      background-color: white;
-    }
-
     &:focus + .permission__checkbox {
       box-shadow: 0 0 0 0.1em #1890FF;
-    }
-
-    &:checked:focus + .permission__checkbox {
-      box-shadow: 0 0 0 0.1em #595959;
     }
   }
 
   &__checkbox {
+    flex-shrink: 0;
     position: relative;
     top: 2px;
     left: -10px;
@@ -150,9 +143,9 @@
       content: '';
       width: 1.5px;
       position: absolute;
-      background-color: #1890FF;
       border-radius: 1px;
       transform-origin: bottom;
+      background-color: white;
     }
 
     &::before {
