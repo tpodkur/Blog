@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { api } from './shared/api.ts';
 import { articlesSlice } from './components/articles/articles.slice.ts';
+import { userSlice } from './components/user-info/user.slice.ts';
 
 const extraArgument = {
   api,
 };
 
-const reducer = combineSlices(articlesSlice);
+const reducer = combineSlices(articlesSlice, userSlice);
 
 const store = configureStore({
   reducer,
