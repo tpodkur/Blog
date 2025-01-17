@@ -31,8 +31,6 @@ const UserDto = z.object({
   email: z.string(),
   token: z.string(),
   username: z.string(),
-  bio: z.string(),
-  image: z.string().or(z.null()),
 });
 
 type ServerArticle = z.infer<typeof ArticleDto>;
@@ -60,7 +58,7 @@ export const api = {
 
   register: async (email: string, password: string, username: string) => {
     return await axios.post(`${baseURL}/users`, { user: { email, password, username } }).then((response) => {
-      const user = UserDto.parse(response.data);
+      const user = UserDto.parse(response.data.user);
       return {
         user: serverUserToUser(user),
       };
@@ -96,6 +94,5 @@ const serverUserToUser = (response: ServerUser): User => {
     username: response.username,
     email: response.email,
     token: response.token,
-    avatar: response.image,
   };
 };

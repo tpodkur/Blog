@@ -5,6 +5,9 @@ import { z, ZodType } from 'zod';
 import { useState } from 'react';
 
 import classes from '../../form.module.scss';
+import { useAppDispath, useAppSelector } from '../../../../store.ts';
+import { register as userRegister } from '../../../user-info/user-thunks.ts';
+import { userSlice } from '../../../user-info/user.slice.ts';
 
 type FormValues = {
   username: string;
@@ -37,6 +40,8 @@ const SignUpSchema: ZodType<FormValues> = z
 
 const SignUp = () => {
   const [checked, setChecked] = useState(true);
+  const dispatch = useAppDispath();
+  const requestError = useAppSelector((state) => userSlice.selectors.requestError(state));
 
   const {
     register,
@@ -46,7 +51,8 @@ const SignUp = () => {
   } = useForm<FormValues>({ resolver: zodResolver(SignUpSchema), mode: 'onSubmit' });
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    const { email, password, username } = data;
+    dispatch(userRegister({ email, password, username }));
     reset();
   });
 
@@ -116,6 +122,7 @@ const SignUp = () => {
           Sign In.
         </Link>
       </p>
+      {requestError}
     </form>
   );
 };
