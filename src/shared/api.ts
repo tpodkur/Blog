@@ -66,7 +66,8 @@ export const api = {
 
   login: async (email: string, password: string) => {
     return await axios.post(`${baseURL}/users/login`, { user: { email, password } }).then((response) => {
-      const user = UserDto.parse(response.data);
+      const user = UserDto.parse(response.data.user);
+      setToken(user.token);
       return { user };
     });
   },

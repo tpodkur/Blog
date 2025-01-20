@@ -4,6 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
 
 import classes from '../../form.module.scss';
+import { login } from '../../../user-info/user-thunks.ts';
+import { useAppDispath, useAppSelector } from '../../../../store.ts';
+import { userSlice } from '../../../user-info/user.slice.ts';
 
 type FormValues = {
   email: string;
@@ -16,6 +19,8 @@ const SignInSchema: ZodType<FormValues> = z.object({
 });
 
 const SignIn = () => {
+  const dispatch = useAppDispath();
+  const requestError = useAppSelector((state) => userSlice.selectors.requestError(state));
   const {
     register,
     formState: { errors },
@@ -24,7 +29,8 @@ const SignIn = () => {
   } = useForm<FormValues>({ resolver: zodResolver(SignInSchema), mode: 'onSubmit' });
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    const { email, password } = data;
+    dispatch(login({ email, password }));
     reset();
   });
 
@@ -58,6 +64,7 @@ const SignIn = () => {
           Sign Up.
         </Link>
       </p>
+      {requestError}
     </form>
   );
 };

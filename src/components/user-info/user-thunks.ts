@@ -18,7 +18,7 @@ export const register =
   };
 
 export const login =
-  ({ email, password }: { email: string; username: string; password: string }): AppThunk =>
+  ({ email, password }: { email: string; password: string }): AppThunk =>
   (dispatch, _, { api }) => {
     dispatch(userSlice.actions.userPending());
     api
