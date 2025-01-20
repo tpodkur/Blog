@@ -3,7 +3,6 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 export type User = {
   username: string;
   email: string;
-  token: string;
   avatar?: string | null;
 };
 
@@ -43,14 +42,13 @@ export const userSlice = createSlice({
   },
   reducers: {
     setUser: (state, action: PayloadAction<{ user: User }>) => {
-      const { username, email, token, avatar } = action.payload.user;
+      const { username, email, avatar } = action.payload.user;
       return {
         ...state,
         user: {
           ...state.user,
           username,
           email,
-          token,
           avatar,
         },
         request: {

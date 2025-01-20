@@ -2,7 +2,8 @@ import axios from 'axios';
 import { z } from 'zod';
 
 import { Article } from '../components/articles/articles.slice.ts';
-import { User } from '../components/user-info/user.slice.ts';
+
+import { setToken } from './token-provider.ts';
 
 const baseURL = 'https://blog-platform.kata.academy/api';
 
@@ -34,7 +35,6 @@ const UserDto = z.object({
 });
 
 type ServerArticle = z.infer<typeof ArticleDto>;
-type ServerUser = z.infer<typeof UserDto>;
 
 export const api = {
   getArticles: async (offset: number = 0) => {
@@ -59,18 +59,15 @@ export const api = {
   register: async (email: string, password: string, username: string) => {
     return await axios.post(`${baseURL}/users`, { user: { email, password, username } }).then((response) => {
       const user = UserDto.parse(response.data.user);
-      return {
-        user: serverUserToUser(user),
-      };
+      setToken(user.token);
+      return { user };
     });
   },
 
   login: async (email: string, password: string) => {
     return await axios.post(`${baseURL}/users/login`, { user: { email, password } }).then((response) => {
       const user = UserDto.parse(response.data);
-      return {
-        user: serverUserToUser(user),
-      };
+      return { user };
     });
   },
 };
@@ -86,13 +83,5 @@ const serverArticleToArticle = (response: ServerArticle): Article => {
     date: response.createdAt,
     favorited: response.favorited,
     favoritesCount: response.favoritesCount,
-  };
-};
-
-const serverUserToUser = (response: ServerUser): User => {
-  return {
-    username: response.username,
-    email: response.email,
-    token: response.token,
   };
 };
