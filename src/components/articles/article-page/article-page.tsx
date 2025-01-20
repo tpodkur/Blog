@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { ArticleId, articlesSlice } from '../articles.slice.ts';
-import { useAppSelector } from '../../../store.ts';
+import { useAppSelector } from '../../../redux.ts';
 import Article from '../article/article.tsx';
 import Spinner from '../../spinner/spinner.tsx';
 

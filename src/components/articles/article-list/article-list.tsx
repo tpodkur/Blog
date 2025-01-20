@@ -1,4 +1,4 @@
-import { useAppDispath, useAppSelector } from '../../../store.ts';
+import { useAppDispath, useAppSelector } from '../../../redux.ts';
 import { Article as ArticleType, articlesSlice } from '../articles.slice.ts';
 import { requestArticles } from '../articles-thunks.ts';
 import Pagination from '../../pagination/pagination.tsx';

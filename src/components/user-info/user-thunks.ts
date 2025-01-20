@@ -1,4 +1,4 @@
-import { AppThunk } from '../../store.ts';
+import { AppThunk } from '../../redux.ts';
 
 import { userSlice } from './user.slice.ts';
 

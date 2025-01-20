@@ -1,21 +1,8 @@
-import { combineSlices, configureStore } from '@reduxjs/toolkit';
 import type { UnknownAction } from '@reduxjs/toolkit';
 import type { ThunkAction } from 'redux-thunk';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { articlesSlice } from './components/articles/articles.slice.ts';
-import { userSlice } from './components/user-info/user.slice.ts';
-import { extraArgument } from './extra-argument.ts';
-
-const reducer = combineSlices(articlesSlice, userSlice);
-
-const store = configureStore({
-  reducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: { extraArgument },
-    }),
-});
+import { extraArgument } from './app/extra-argument.ts';
 
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -23,5 +10,3 @@ export type AppThunk<R = void> = ThunkAction<R, AppState, typeof extraArgument, 
 
 export const useAppSelector = useSelector.withTypes<AppState>();
 export const useAppDispath = useDispatch.withTypes<AppDispatch>();
-
-export default store;

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useAppDispath, useAppSelector } from '../../store.ts';
+import { useAppDispath, useAppSelector } from '../../redux.ts';
 import { userSlice } from '../user-info/user.slice.ts';
 import UserInfo from '../user-info/user-info.tsx';
 

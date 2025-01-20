@@ -5,7 +5,7 @@ import { z, ZodType } from 'zod';
 
 import classes from '../../form.module.scss';
 import { login } from '../../../user-info/user-thunks.ts';
-import { useAppDispath, useAppSelector } from '../../../../store.ts';
+import { useAppDispath, useAppSelector } from '../../../../redux.ts';
 import { userSlice } from '../../../user-info/user.slice.ts';
 
 type FormValues = {
