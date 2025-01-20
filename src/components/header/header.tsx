@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom';
 
+import { useAppDispath, useAppSelector } from '../../store.ts';
+import { userSlice } from '../user-info/user.slice.ts';
 import UserInfo from '../user-info/user-info.tsx';
 
 import classes from './header.module.scss';
 
 const Header = () => {
-  // TODO get value from store
-  const isUserLoggedIn = true;
+  const dispath = useAppDispath();
+  const isUserLoggedIn = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
+  const { username, avatar = './src/assets/user.png' } =
+    useAppSelector((state) => userSlice.selectors.user(state)) ?? {};
+
+  const handleLodOut = () => dispath(userSlice.actions.removeUser());
 
   const profile = (
     <div className={classes.profile}>
@@ -15,9 +21,10 @@ const Header = () => {
           Create article
         </div>
       </Link>
-      {/*TODO get values from store*/}
-      <UserInfo author={'John Doe'} avatar={'a'} />
-      <div className={`${classes.button} ${classes['button--bordered']}`}>Log Out</div>
+      <UserInfo author={username} avatar={avatar} />
+      <div className={`${classes.button} ${classes['button--bordered']}`} onClick={handleLodOut}>
+        Log Out
+      </div>
     </div>
   );
 
