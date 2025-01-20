@@ -3,13 +3,9 @@ import type { UnknownAction } from '@reduxjs/toolkit';
 import type { ThunkAction } from 'redux-thunk';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { api } from './shared/api.ts';
 import { articlesSlice } from './components/articles/articles.slice.ts';
 import { userSlice } from './components/user-info/user.slice.ts';
-
-const extraArgument = {
-  api,
-};
+import { extraArgument } from './extra-argument.ts';
 
 const reducer = combineSlices(articlesSlice, userSlice);
 

@@ -10,6 +10,8 @@ import SignIn from './components/forms/auth/sign-in/sign-in.tsx';
 import SignUp from './components/forms/auth/sign-up/sign-up.tsx';
 import EditProfile from './components/forms/edit-profile/edit-profile.tsx';
 
+const loadStore = () => new Promise((resolve) => setTimeout(() => resolve(store), 0));
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -23,7 +25,7 @@ export const router = createBrowserRouter([
         path: 'articles',
         Component: ArticleList,
         loader: () => {
-          store.dispatch(requestArticles());
+          loadStore().then(() => store.dispatch(requestArticles()));
           return null;
         },
       },
@@ -31,7 +33,7 @@ export const router = createBrowserRouter([
         path: 'articles/:articleId',
         Component: ArticlePage,
         loader: ({ params }) => {
-          store.dispatch(requestArticle(params.articleId ?? ''));
+          loadStore().then(() => store.dispatch(requestArticle(params.articleId ?? '')));
           return null;
         },
       },
