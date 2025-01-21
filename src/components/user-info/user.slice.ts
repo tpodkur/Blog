@@ -1,4 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import { register } from './user-thunks.ts';
 
 export type User = {
   username: string;
@@ -42,39 +44,24 @@ export const userSlice = createSlice({
     isUserFailed: (state) => state.request.status === 'failed',
   },
   reducers: {
-    setUser: (state, action: PayloadAction<{ user: User }>) => {
-      const { username, email, avatar } = action.payload.user;
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          username,
-          email,
-          avatar,
-        },
-        request: {
-          status: 'success',
-          error: '',
-        },
-      };
-    },
     removeUser: (state) => {
       return {
         ...state,
         user: null,
       };
     },
-    userPending: (state) => {
-      return {
-        ...state,
-        request: {
-          status: 'pending',
-          error: '',
-        },
-      };
-    },
-    userFailed: (state, action: PayloadAction<{ error: UserError }>) => {
-      const { error } = action.payload;
+  },
+  extraReducers: (builder) => {
+    builder.addCase(register.pending, (state) => {
+      state.request.status = 'pending';
+    });
+    builder.addCase(register.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+      const { user } = action.payload;
+      state.request.status = 'success';
+      state.user = user;
+    });
+    builder.addCase(register.rejected, (state, action: PayloadAction<{ error: UserError }>) => {
+      const { error }: { error: UserError } = action.payload;
 
       let message = '';
       message += error.username ? `username ${error.username}` : '';
@@ -82,13 +69,8 @@ export const userSlice = createSlice({
       message += error.password ? `password ${error.password}` : '';
       message += error['email or password'] ? `email or password ${error['email or password']}` : '';
 
-      return {
-        ...state,
-        request: {
-          status: 'failed',
-          error: message || 'Request failed with error',
-        },
-      };
-    },
+      state.request.status = 'failed';
+      state.request.error = message || 'Request failed with error';
+    });
   },
 });
