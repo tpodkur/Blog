@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
+import { useState } from 'react';
 
 import classes from '../../form.module.scss';
 import { login } from '../../../user-info/user-thunks.ts';
-import { useAppDispath, useAppSelector } from '../../../../redux.ts';
-import { userSlice } from '../../../user-info/user.slice.ts';
+import { useAppDispath } from '../../../../redux.ts';
+import { extractError } from '../../../../shared/auth-provider.ts';
 
 type FormValues = {
   email: string;
@@ -20,19 +21,28 @@ const SignInSchema: ZodType<FormValues> = z.object({
 
 const SignIn = () => {
   const dispatch = useAppDispath();
-  const requestError = useAppSelector((state) => userSlice.selectors.loginReqestError(state));
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
   } = useForm<FormValues>({ resolver: zodResolver(SignInSchema), mode: 'onSubmit' });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = handleSubmit((data) => {
     const { email, password } = data;
-    dispatch(login({ email, password }));
-    reset();
+    dispatch(login({ email, password })).then((res) => {
+      if (res.error) {
+        setErrorMessage(extractError(res.payload.error));
+      } else {
+        reset();
+      }
+    });
   });
+
+  const error = errorMessage.length ? (
+    <span className={classes['form__request-error-message']}>{errorMessage}</span>
+  ) : null;
 
   return (
     <form method="post" onSubmit={onSubmit} className={classes.form}>
@@ -64,7 +74,7 @@ const SignIn = () => {
           Sign Up.
         </Link>
       </p>
-      {requestError}
+      {error}
     </form>
   );
 };

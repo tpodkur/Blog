@@ -108,6 +108,12 @@
     line-height: 22px;
     color: #F5222D;
   }
+
+  &__request-error-message {
+    margin-top: 30px;
+    color: #F5222D;
+    text-align: center;
+  }
 }
 
 .permission {

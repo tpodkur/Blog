@@ -5,9 +5,9 @@ import { z, ZodType } from 'zod';
 import { useState } from 'react';
 
 import classes from '../../form.module.scss';
-import { useAppDispath, useAppSelector } from '../../../../redux.ts';
+import { useAppDispath } from '../../../../redux.ts';
 import { register as userRegister } from '../../../user-info/user-thunks.ts';
-import { userSlice } from '../../../user-info/user.slice.ts';
+import { extractError } from '../../../../shared/auth-provider.ts';
 
 type FormValues = {
   username: string;
@@ -40,8 +40,8 @@ const SignUpSchema: ZodType<FormValues> = z
 
 const SignUp = () => {
   const [checked, setChecked] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useAppDispath();
-  const requestError = useAppSelector((state) => userSlice.selectors.registerReqestError(state));
 
   const {
     register,
@@ -52,11 +52,20 @@ const SignUp = () => {
 
   const onSubmit = handleSubmit((data) => {
     const { email, password, username } = data;
-    dispatch(userRegister({ email, password, username }));
-    reset();
+    dispatch(userRegister({ email, password, username })).then((res) => {
+      if (res.error) {
+        setErrorMessage(extractError(res.payload.error));
+      } else {
+        reset();
+      }
+    });
   });
 
   const onCheckboxChange = () => setChecked((prev) => !prev);
+
+  const error = errorMessage.length ? (
+    <span className={classes['form__request-error-message']}>{errorMessage}</span>
+  ) : null;
 
   return (
     <form method="post" onSubmit={onSubmit} className={classes.form}>
@@ -122,7 +131,7 @@ const SignUp = () => {
           Sign In.
         </Link>
       </p>
-      {requestError}
+      {error}
     </form>
   );
 };
