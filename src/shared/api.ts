@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { Article } from '../components/articles/articles.slice.ts';
 
 import { setToken } from './token-provider.ts';
+import authRequest from './auth-request.tsx';
 
 const baseURL = 'https://blog-platform.kata.academy/api';
 
@@ -68,6 +69,13 @@ export const api = {
     return await axios.post(`${baseURL}/users/login`, { user: { email, password } }).then((response) => {
       const user = UserDto.parse(response.data.user);
       setToken(user.token);
+      return { user };
+    });
+  },
+
+  getUser: async () => {
+    return authRequest.get(`${baseURL}/user`).then((response) => {
+      const user = response.data.user;
       return { user };
     });
   },

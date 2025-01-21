@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { register, login } from './user-thunks.ts';
+import { register, login, getUser } from './user-thunks.ts';
 
 export type User = {
   username: string;
@@ -26,6 +26,10 @@ type UserState = {
       status: 'idle' | 'pending' | 'success' | 'failed';
       error: string;
     };
+    user: {
+      status: 'idle' | 'pending' | 'success' | 'failed';
+      error: string;
+    };
   };
 };
 
@@ -37,6 +41,10 @@ const initialUserState: UserState = {
       error: '',
     },
     login: {
+      status: 'idle',
+      error: '',
+    },
+    user: {
       status: 'idle',
       error: '',
     },
@@ -86,6 +94,17 @@ export const userSlice = createSlice({
       const { error } = action.payload;
       state.requests.login.status = 'failed';
       state.requests.login.error = extractError(error) || 'Request failed with error';
+    });
+    builder.addCase(getUser.pending, (state) => {
+      state.requests.user.status = 'pending';
+    });
+    builder.addCase(getUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+      const { user } = action.payload;
+      state.requests.user.status = 'success';
+      state.user = user;
+    });
+    builder.addCase(getUser.rejected, (state) => {
+      state.requests.user.status = 'failed';
     });
   },
 });
