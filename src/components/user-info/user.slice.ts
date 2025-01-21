@@ -8,46 +8,21 @@ export type User = {
   avatar?: string | null;
 };
 
-type UserError = {
-  username?: string;
-  email?: string;
-  password?: string;
-  'email or password'?: string;
-};
-
 type UserState = {
   user: User | null;
   requests: {
-    register: {
-      status: 'idle' | 'pending' | 'success' | 'failed';
-      error: string;
-    };
-    login: {
-      status: 'idle' | 'pending' | 'success' | 'failed';
-      error: string;
-    };
-    user: {
-      status: 'idle' | 'pending' | 'success' | 'failed';
-      error: string;
-    };
+    registerStatus: 'idle' | 'pending' | 'success' | 'failed';
+    loginStatus: 'idle' | 'pending' | 'success' | 'failed';
+    userStatus: 'idle' | 'pending' | 'success' | 'failed';
   };
 };
 
 const initialUserState: UserState = {
   user: null,
   requests: {
-    register: {
-      status: 'idle',
-      error: '',
-    },
-    login: {
-      status: 'idle',
-      error: '',
-    },
-    user: {
-      status: 'idle',
-      error: '',
-    },
+    registerStatus: 'idle',
+    loginStatus: 'idle',
+    userStatus: 'idle',
   },
 };
 
@@ -57,8 +32,6 @@ export const userSlice = createSlice({
   selectors: {
     user: (state) => state.user,
     isLoggedIn: (state) => !!state.user,
-    registerReqestError: (state) => state.requests.register.error,
-    loginReqestError: (state) => state.requests.login.error,
   },
   reducers: {
     removeUser: (state) => {
@@ -70,51 +43,37 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
-      state.requests.register.status = 'pending';
+      state.requests.registerStatus = 'pending';
     });
     builder.addCase(register.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
       const { user } = action.payload;
-      state.requests.register.status = 'success';
+      state.requests.registerStatus = 'success';
       state.user = user;
     });
-    builder.addCase(register.rejected, (state, action: PayloadAction<{ error: UserError }>) => {
-      const { error } = action.payload;
-      state.requests.register.status = 'failed';
-      state.requests.register.error = extractError(error) || 'Request failed with error';
+    builder.addCase(register.rejected, (state) => {
+      state.requests.registerStatus = 'failed';
     });
     builder.addCase(login.pending, (state) => {
-      state.requests.login.status = 'pending';
+      state.requests.loginStatus = 'pending';
     });
     builder.addCase(login.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
       const { user } = action.payload;
-      state.requests.login.status = 'success';
+      state.requests.loginStatus = 'success';
       state.user = user;
     });
-    builder.addCase(login.rejected, (state, action: PayloadAction<{ error: UserError }>) => {
-      const { error } = action.payload;
-      state.requests.login.status = 'failed';
-      state.requests.login.error = extractError(error) || 'Request failed with error';
+    builder.addCase(login.rejected, (state) => {
+      state.requests.loginStatus = 'failed';
     });
     builder.addCase(getUser.pending, (state) => {
-      state.requests.user.status = 'pending';
+      state.requests.userStatus = 'pending';
     });
     builder.addCase(getUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
       const { user } = action.payload;
-      state.requests.user.status = 'success';
+      state.requests.userStatus = 'success';
       state.user = user;
     });
     builder.addCase(getUser.rejected, (state) => {
-      state.requests.user.status = 'failed';
+      state.requests.userStatus = 'failed';
     });
   },
 });
-
-const extractError = (error: UserError): string => {
-  let message = '';
-  message += error.username ? `username ${error.username}` : '';
-  message += error.email ? `email ${error.email}` : '';
-  message += error.password ? `password ${error.password}` : '';
-  message += error['email or password'] ? `email or password ${error['email or password']}` : '';
-
-  return message;
-};

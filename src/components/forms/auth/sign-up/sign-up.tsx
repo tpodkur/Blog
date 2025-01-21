@@ -56,6 +56,7 @@ const SignUp = () => {
       if (res.error) {
         setErrorMessage(extractError(res.payload.error));
       } else {
+        setErrorMessage('');
         reset();
       }
     });
