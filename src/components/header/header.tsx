@@ -22,7 +22,11 @@ const Header = () => {
           Create article
         </div>
       </Link>
-      <UserInfo author={username} avatar={avatar} />
+      <Link to="edit-profile" className={classes.link}>
+        <span className={classes.user}>
+          <UserInfo author={username} avatar={avatar} />
+        </span>
+      </Link>
       <div className={`${classes.button} ${classes['button--bordered']}`} onClick={handleLodOut}>
         Log Out
       </div>

@@ -25,6 +25,13 @@
   align-items: center;
 }
 
+.user {
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+}
+
 .button {
   width: 109px;
   height: 51px;
