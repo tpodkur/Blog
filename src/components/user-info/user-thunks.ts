@@ -1,4 +1,7 @@
-import { createAppAsyncThunk } from '../../redux.ts';
+import { AppThunk, createAppAsyncThunk } from '../../redux.ts';
+import { removeToken } from '../../shared/token-provider.ts';
+
+import { userSlice } from './user.slice.ts';
 
 export const register = createAppAsyncThunk(
   'user/register',
@@ -31,3 +34,8 @@ export const getUser = createAppAsyncThunk('user/getUser', async (_, thunkAPI) =
     return thunkAPI.rejectWithValue({ error });
   }
 });
+
+export const logout = (): AppThunk => (dispatch) => {
+  removeToken();
+  dispatch(userSlice.actions.removeUser());
+};
