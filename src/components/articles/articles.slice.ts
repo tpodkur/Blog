@@ -1,6 +1,8 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+import { requestArticles } from './articles-thunks.ts';
+
 export type ArticleId = string;
 
 export type Article = {
@@ -56,40 +58,11 @@ export const articlesSlice = createSlice({
     isRequestArticleSuccess: (state) => state.requestArticleStatus === 'success',
   },
   reducers: {
-    saveArticles: (state, action: PayloadAction<{ articles: Article[]; count: number }>) => {
-      const { articles, count } = action.payload;
-      return {
-        ...state,
-        entities: {
-          ...articles.reduce((acc: Record<ArticleId, Article>, article: Article) => {
-            return {
-              ...acc,
-              [article.id]: article,
-            };
-          }, {}),
-        },
-        ids: [...articles.map((a) => a.id)],
-        requestArticlesStatus: 'success',
-        count,
-      };
-    },
     changePage: (state, action: PayloadAction<{ page: number }>) => {
       const { page } = action.payload;
       return {
         ...state,
         page,
-      };
-    },
-    requestArticlesPending: (state) => {
-      return {
-        ...state,
-        requestArticlesStatus: 'pending',
-      };
-    },
-    requestArticlesFailed: (state) => {
-      return {
-        ...state,
-        requestArticlesStatus: 'failed',
       };
     },
     saveArticle: (state, action: PayloadAction<{ article: Article }>) => {
@@ -115,5 +88,30 @@ export const articlesSlice = createSlice({
         requestArticleStatus: 'failed',
       };
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(requestArticles.pending, (state) => {
+      state.requestArticlesStatus = 'pending';
+    });
+    builder.addCase(
+      requestArticles.fulfilled,
+      (state, action: PayloadAction<{ articles: Article[]; count: number }>) => {
+        const { articles, count } = action.payload;
+        state.requestArticlesStatus = 'success';
+        state.entities = {
+          ...articles.reduce((acc: Record<ArticleId, Article>, article: Article) => {
+            return {
+              ...acc,
+              [article.id]: article,
+            };
+          }, {}),
+        };
+        state.ids = [...articles.map((a) => a.id)];
+        state.count = count;
+      }
+    );
+    builder.addCase(requestArticles.rejected, (state) => {
+      state.requestArticlesStatus = 'failed';
+    });
   },
 });
