@@ -1,6 +1,4 @@
-import { AppThunk, createAppAsyncThunk } from '../../redux.ts';
-
-import { userSlice } from './user.slice.ts';
+import { createAppAsyncThunk } from '../../redux.ts';
 
 export const register = createAppAsyncThunk(
   'user/register',
@@ -13,16 +11,15 @@ export const register = createAppAsyncThunk(
   }
 );
 
-export const login =
-  ({ email, password }: { email: string; password: string }): AppThunk<Promise<void>> =>
-  async (dispatch, _, { api, router }) => {
-    dispatch(userSlice.actions.userPending());
+export const login = createAppAsyncThunk(
+  'user/login',
+  async ({ email, password }: { email: string; password: string }, thunkAPI) => {
     try {
-      const { user } = await api.login(email, password);
-      await router.navigate('/articles');
-      dispatch(userSlice.actions.setUser({ user }));
+      const res = await thunkAPI.extra.api.login(email, password);
+      await thunkAPI.extra.router.navigate('/articles');
+      return res;
     } catch (error) {
-      console.error(error);
-      dispatch(userSlice.actions.userFailed({ error: error.response.data.errors }));
+      return thunkAPI.rejectWithValue({ error: error.response.data.errors });
     }
-  };
+  }
+);

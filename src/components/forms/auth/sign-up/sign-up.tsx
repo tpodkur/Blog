@@ -41,7 +41,7 @@ const SignUpSchema: ZodType<FormValues> = z
 const SignUp = () => {
   const [checked, setChecked] = useState(true);
   const dispatch = useAppDispath();
-  const requestError = useAppSelector((state) => userSlice.selectors.requestError(state));
+  const requestError = useAppSelector((state) => userSlice.selectors.registerReqestError(state));
 
   const {
     register,

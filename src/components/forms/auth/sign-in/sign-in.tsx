@@ -20,7 +20,7 @@ const SignInSchema: ZodType<FormValues> = z.object({
 
 const SignIn = () => {
   const dispatch = useAppDispath();
-  const requestError = useAppSelector((state) => userSlice.selectors.requestError(state));
+  const requestError = useAppSelector((state) => userSlice.selectors.loginReqestError(state));
   const {
     register,
     formState: { errors },

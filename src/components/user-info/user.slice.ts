@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { register } from './user-thunks.ts';
+import { register, login } from './user-thunks.ts';
 
 export type User = {
   username: string;
@@ -17,17 +17,29 @@ type UserError = {
 
 type UserState = {
   user: User | null;
-  request: {
-    status: 'idle' | 'pending' | 'success' | 'failed';
-    error: string;
+  requests: {
+    register: {
+      status: 'idle' | 'pending' | 'success' | 'failed';
+      error: string;
+    };
+    login: {
+      status: 'idle' | 'pending' | 'success' | 'failed';
+      error: string;
+    };
   };
 };
 
 const initialUserState: UserState = {
   user: null,
-  request: {
-    status: 'idle',
-    error: '',
+  requests: {
+    register: {
+      status: 'idle',
+      error: '',
+    },
+    login: {
+      status: 'idle',
+      error: '',
+    },
   },
 };
 
@@ -37,11 +49,8 @@ export const userSlice = createSlice({
   selectors: {
     user: (state) => state.user,
     isLoggedIn: (state) => !!state.user,
-    requestError: (state) => state.request.error,
-    isUserIdle: (state) => state.request.status === 'idle',
-    isUserPending: (state) => state.request.status === 'pending',
-    isUserSuccess: (state) => state.request.status === 'success',
-    isUserFailed: (state) => state.request.status === 'failed',
+    registerReqestError: (state) => state.requests.register.error,
+    loginReqestError: (state) => state.requests.login.error,
   },
   reducers: {
     removeUser: (state) => {
@@ -53,24 +62,40 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
-      state.request.status = 'pending';
+      state.requests.register.status = 'pending';
     });
     builder.addCase(register.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
       const { user } = action.payload;
-      state.request.status = 'success';
+      state.requests.register.status = 'success';
       state.user = user;
     });
     builder.addCase(register.rejected, (state, action: PayloadAction<{ error: UserError }>) => {
-      const { error }: { error: UserError } = action.payload;
-
-      let message = '';
-      message += error.username ? `username ${error.username}` : '';
-      message += error.email ? `email ${error.email}` : '';
-      message += error.password ? `password ${error.password}` : '';
-      message += error['email or password'] ? `email or password ${error['email or password']}` : '';
-
-      state.request.status = 'failed';
-      state.request.error = message || 'Request failed with error';
+      const { error } = action.payload;
+      state.requests.register.status = 'failed';
+      state.requests.register.error = extractError(error) || 'Request failed with error';
+    });
+    builder.addCase(login.pending, (state) => {
+      state.requests.login.status = 'pending';
+    });
+    builder.addCase(login.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+      const { user } = action.payload;
+      state.requests.login.status = 'success';
+      state.user = user;
+    });
+    builder.addCase(login.rejected, (state, action: PayloadAction<{ error: UserError }>) => {
+      const { error } = action.payload;
+      state.requests.login.status = 'failed';
+      state.requests.login.error = extractError(error) || 'Request failed with error';
     });
   },
 });
+
+const extractError = (error: UserError): string => {
+  let message = '';
+  message += error.username ? `username ${error.username}` : '';
+  message += error.email ? `email ${error.email}` : '';
+  message += error.password ? `password ${error.password}` : '';
+  message += error['email or password'] ? `email or password ${error['email or password']}` : '';
+
+  return message;
+};
