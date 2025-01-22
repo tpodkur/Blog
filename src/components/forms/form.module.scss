@@ -29,6 +29,10 @@
     &:first-child {
       margin-top: 21px;
     }
+
+    &--size_M {
+      margin-top: 21px;
+    }
   }
 
   &__input {
@@ -54,6 +58,11 @@
     &::placeholder {
       color: #BFBFBF;
     }
+
+    &--textarea {
+      height: 170px;
+      resize: none;
+    }
   }
 
   &__permission {
@@ -78,6 +87,10 @@
     &:focus {
       outline: none;
       box-shadow: 0 0 0 0.1em #595959;
+    }
+
+    &--size_S {
+      width: 40%;
     }
   }
 
@@ -113,6 +126,10 @@
     margin-top: 30px;
     color: #F5222D;
     text-align: center;
+  }
+
+  &--size_M {
+    width: 80%;
   }
 }
 

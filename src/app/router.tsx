@@ -8,6 +8,7 @@ import ArticlePage from '../components/articles/article-page/article-page.tsx';
 import SignIn from '../components/forms/auth/sign-in/sign-in.tsx';
 import SignUp from '../components/forms/auth/sign-up/sign-up.tsx';
 import EditProfile from '../components/forms/edit-profile/edit-profile.tsx';
+import CreateArticle from '../components/forms/create-article/create-article.tsx';
 
 import store from './store.ts';
 
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: 'edit-profile',
         Component: EditProfile,
+      },
+      {
+        path: 'create-article',
+        Component: CreateArticle,
       },
     ],
   },
