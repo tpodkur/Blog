@@ -39,10 +39,18 @@ const CreateArticle = () => {
       tags: [{ value: '' }, { value: '' }],
     },
   });
-  const { fields } = useFieldArray({
+  const { fields, remove, append } = useFieldArray({
     name: 'tags',
     control,
   });
+
+  const onDeleteTag = (fieldIndex) => {
+    remove(fieldIndex);
+  };
+
+  const onAppendTag = () => {
+    append({ value: '' });
+  };
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
@@ -58,7 +66,7 @@ const CreateArticle = () => {
           className={`${classes.input} ${classes.tag__input} ${errors.tag && classes['input--not-valid']}`}
           {...register(`tags.${index}.value`)}
         />
-        <Button danger className={`${classes['tag-button']}`}>
+        <Button danger className={`${classes['tag-button']}`} onClick={() => onDeleteTag(index)}>
           Delete
         </Button>
       </div>
@@ -105,6 +113,7 @@ const CreateArticle = () => {
             color="primary"
             variant="outlined"
             className={`${classes['tags-list__add']} ${classes['tag-button']}`}
+            onClick={onAppendTag}
           >
             Add tag
           </Button>
