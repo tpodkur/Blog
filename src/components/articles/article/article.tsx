@@ -1,5 +1,6 @@
 import Markdown from 'markdown-to-jsx';
 import { Link } from 'react-router-dom';
+import { Button, ConfigProvider } from 'antd';
 
 import UserInfo from '../../user-info/user-info.tsx';
 import { Article as ArticleType } from '../articles.slice.ts';
@@ -9,9 +10,10 @@ import classes from './article.module.scss';
 type ArticleProps = {
   article: ArticleType;
   smallSize: boolean;
+  showButtonsBlock: boolean;
 };
 
-const Article = ({ article, smallSize }: ArticleProps) => {
+const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps) => {
   const { title, tags, text, author, image, date, favorited, favoritesCount } = article;
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
@@ -28,6 +30,26 @@ const Article = ({ article, smallSize }: ArticleProps) => {
   // card width 820 -- 1 line tags: 42 symbols -- 1 text line: 100 symbols
   const tagsLinesCount = Math.ceil(tagsLengthInSymbols / 42);
   const shortText = shortenText(100, 3 - tagsLinesCount, text);
+
+  const actionButtons = (
+    <div className={classes.buttons}>
+      <Button danger>Delete</Button>
+      <ConfigProvider
+        theme={{
+          components: {
+            Button: {
+              defaultColor: '#52C41A',
+              defaultBorderColor: '#52C41A',
+              defaultHoverBorderColor: 'rgba(82,196,26,0.7)',
+              defaultHoverColor: 'rgba(82,196,26,0.7)',
+            },
+          },
+        }}
+      >
+        <Button>Edit</Button>
+      </ConfigProvider>
+    </div>
+  );
 
   return (
     <div className={classes.article}>
@@ -56,6 +78,7 @@ const Article = ({ article, smallSize }: ArticleProps) => {
       </div>
       <div>
         <UserInfo author={author} image={image} date={date} />
+        {showButtonsBlock && actionButtons}
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ const ArticlePage = () => {
 
   const content = (
     <div className={classes['article-page__article']}>
-      <Article article={article} smallSize={false} />
+      <Article article={article} smallSize={false} showButtonsBlock={true} />
     </div>
   );
 
