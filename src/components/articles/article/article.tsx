@@ -46,7 +46,9 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
           },
         }}
       >
-        <Button>Edit</Button>
+        <Link to={`/edit-article/${article.id}`}>
+          <Button>Edit</Button>
+        </Link>
       </ConfigProvider>
     </div>
   );

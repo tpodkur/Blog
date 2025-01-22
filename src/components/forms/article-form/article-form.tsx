@@ -16,6 +16,14 @@ type FormValues = {
   }[];
 };
 
+type CreateArticleProps = {
+  formName: string;
+  title?: string;
+  description?: string;
+  text?: string;
+  tags?: string[];
+};
+
 const CreateArticleSchema: ZodType<FormValues> = z.object({
   title: z.string().min(1, { message: 'This is required.' }),
   description: z.string().min(1, { message: 'This is required.' }),
@@ -27,7 +35,7 @@ const CreateArticleSchema: ZodType<FormValues> = z.object({
   ),
 });
 
-const CreateArticle = () => {
+const ArticleForm = ({ formName, title, description, text, tags }: CreateArticleProps) => {
   const dispatch = useAppDispath();
   const {
     register,
@@ -39,7 +47,10 @@ const CreateArticle = () => {
     resolver: zodResolver(CreateArticleSchema),
     mode: 'onSubmit',
     defaultValues: {
-      tags: [{ value: '' }, { value: '' }],
+      title: title,
+      description: description,
+      text: text,
+      tags: tags?.length ? tags.map((tag) => ({ value: tag })) : [{ value: '' }, { value: '' }],
     },
   });
   const { fields, remove, append } = useFieldArray({
@@ -86,7 +97,7 @@ const CreateArticle = () => {
 
   return (
     <form method="post" onSubmit={onSubmit} className={`${classes.form} ${classes['form--size_M']}`}>
-      <h1 className={classes.form__title}>Create new article</h1>
+      <h1 className={classes.form__title}>{formName}</h1>
       <label className={`${classes.form__label} ${classes['form__label--size_M']}`}>
         Title
         <input
@@ -136,4 +147,4 @@ const CreateArticle = () => {
   );
 };
 
-export default CreateArticle;
+export default ArticleForm;

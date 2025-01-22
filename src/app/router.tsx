@@ -8,7 +8,8 @@ import ArticlePage from '../components/articles/article-page/article-page.tsx';
 import SignIn from '../components/forms/auth/sign-in/sign-in.tsx';
 import SignUp from '../components/forms/auth/sign-up/sign-up.tsx';
 import EditProfile from '../components/forms/edit-profile/edit-profile.tsx';
-import CreateArticle from '../components/forms/create-article/create-article.tsx';
+import CreateArticle from '../components/articles/create-article/create-article.tsx';
+import EditArticle from '../components/articles/edit-article/edit-article.tsx';
 
 import store from './store.ts';
 
@@ -54,6 +55,14 @@ export const router = createBrowserRouter([
       {
         path: 'create-article',
         Component: CreateArticle,
+      },
+      {
+        path: 'edit-article/:articleId',
+        Component: EditArticle,
+        loader: ({ params }) => {
+          loadStore().then(() => store.dispatch(requestArticle(params.articleId ?? '')));
+          return null;
+        },
       },
     ],
   },
