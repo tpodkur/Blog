@@ -35,3 +35,27 @@ export const requestArticle =
         dispatch(articlesSlice.actions.requestArticleFailed());
       });
   };
+
+export const createArticle = createAppAsyncThunk(
+  'article/createArticle',
+  async (
+    {
+      title,
+      description,
+      text,
+      tags,
+    }: {
+      title: string;
+      description: string;
+      text: string;
+      tags?: string[];
+    },
+    thunkAPI
+  ) => {
+    try {
+      return await thunkAPI.extra.api.createArticle(title, description, text, tags);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);

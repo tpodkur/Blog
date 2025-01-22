@@ -4,6 +4,8 @@ import { z, ZodType } from 'zod';
 import { Button } from 'antd';
 
 import classes from '../form.module.scss';
+import { useAppDispath } from '../../../redux.ts';
+import { createArticle } from '../../articles/articles-thunks.ts';
 
 type FormValues = {
   title: string;
@@ -15,9 +17,9 @@ type FormValues = {
 };
 
 const CreateArticleSchema: ZodType<FormValues> = z.object({
-  title: z.string(),
-  description: z.string(),
-  text: z.string(),
+  title: z.string().min(1, { message: 'This is required.' }),
+  description: z.string().min(1, { message: 'This is required.' }),
+  text: z.string().min(1, { message: 'This is required.' }),
   tags: z.array(
     z.object({
       value: z.string(),
@@ -26,6 +28,7 @@ const CreateArticleSchema: ZodType<FormValues> = z.object({
 });
 
 const CreateArticle = () => {
+  const dispatch = useAppDispath();
   const {
     register,
     formState: { errors },
@@ -53,7 +56,15 @@ const CreateArticle = () => {
   };
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    const { title, description, text, tags } = data;
+    dispatch(
+      createArticle({
+        title,
+        description,
+        text,
+        tags: tags.filter((tagField) => !!tagField.value.length).map((tagField) => tagField.value),
+      })
+    );
     reset();
   });
 

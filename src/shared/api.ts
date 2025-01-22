@@ -108,6 +108,24 @@ export const api = {
         return { user };
       });
   },
+
+  createArticle: async (title: string, description: string, text: string, tagList?: string[]) => {
+    return authRequest
+      .post(`${baseURL}/articles`, {
+        article: {
+          title,
+          description,
+          body: text,
+          tagList,
+        },
+      })
+      .then((response) => {
+        const article = ArticleDto.parse(response.data.article);
+        return {
+          article: serverArticleToArticle(article),
+        };
+      });
+  },
 };
 
 const serverArticleToArticle = (response: ServerArticle): Article => {

@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { requestArticles } from './articles-thunks.ts';
+import { createArticle, requestArticles } from './articles-thunks.ts';
 
 export type ArticleId = string;
 
@@ -24,6 +24,7 @@ type ArticlesState = {
   count: number;
   requestArticlesStatus: 'idle' | 'pending' | 'success' | 'failed';
   requestArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
+  createArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
 };
 
 const initialArticlesState: ArticlesState = {
@@ -33,6 +34,7 @@ const initialArticlesState: ArticlesState = {
   count: 0,
   requestArticlesStatus: 'idle',
   requestArticleStatus: 'idle',
+  createArticleStatus: 'idle',
 };
 
 export const articlesSlice = createSlice({
@@ -112,6 +114,15 @@ export const articlesSlice = createSlice({
     );
     builder.addCase(requestArticles.rejected, (state) => {
       state.requestArticlesStatus = 'failed';
+    });
+    builder.addCase(createArticle.pending, (state) => {
+      state.createArticleStatus = 'pending';
+    });
+    builder.addCase(createArticle.fulfilled, (state) => {
+      state.createArticleStatus = 'success';
+    });
+    builder.addCase(createArticle.rejected, (state) => {
+      state.createArticleStatus = 'failed';
     });
   },
 });
