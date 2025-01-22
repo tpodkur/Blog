@@ -86,12 +86,12 @@ export const api = {
     username,
     email,
     password,
-    avatar,
+    image,
   }: {
     username?: string;
     email?: string;
     password?: string;
-    avatar?: string;
+    image?: string;
   }) => {
     return authRequest
       .put(`${baseURL}/user`, {
@@ -99,7 +99,7 @@ export const api = {
           username,
           email,
           password,
-          image: avatar,
+          image,
         },
       })
       .then((response) => {
@@ -117,7 +117,7 @@ const serverArticleToArticle = (response: ServerArticle): Article => {
     tags: response.tagList || [],
     text: response.body ? response.body : '',
     author: response.author.username,
-    avatar: response.author.image,
+    image: response.author.image,
     date: response.createdAt,
     favorited: response.favorited,
     favoritesCount: response.favoritesCount,

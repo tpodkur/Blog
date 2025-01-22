@@ -10,7 +10,7 @@ import classes from './header.module.scss';
 const Header = () => {
   const dispath = useAppDispath();
   const isUserLoggedIn = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
-  const { username, avatar } = useAppSelector((state) => userSlice.selectors.user(state)) ?? {};
+  const { username, image } = useAppSelector((state) => userSlice.selectors.user(state)) ?? {};
   const handleLodOut = () => dispath(logout());
 
   const profile = (
@@ -22,7 +22,7 @@ const Header = () => {
       </Link>
       <Link to="edit-profile" className={classes.link}>
         <span className={classes.user}>
-          <UserInfo author={username} avatar={avatar} />
+          <UserInfo author={username} image={image} />
         </span>
       </Link>
       <div className={`${classes.button} ${classes['button--bordered']}`} onClick={handleLodOut}>

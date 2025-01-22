@@ -47,7 +47,7 @@ export const updateUser = createAppAsyncThunk(
       username?: string;
       email?: string;
       password?: string;
-      avatar?: string;
+      image?: string;
     },
     thunkAPI
   ) => {

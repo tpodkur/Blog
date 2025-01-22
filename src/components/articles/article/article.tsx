@@ -12,7 +12,7 @@ type ArticleProps = {
 };
 
 const Article = ({ article, smallSize }: ArticleProps) => {
-  const { title, tags, text, author, avatar, date, favorited, favoritesCount } = article;
+  const { title, tags, text, author, image, date, favorited, favoritesCount } = article;
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
     if (linesCount <= 0) return '';
@@ -55,7 +55,7 @@ const Article = ({ article, smallSize }: ArticleProps) => {
         <Markdown className={classes.article__text}>{smallSize ? shortText : text}</Markdown>
       </div>
       <div>
-        <UserInfo author={author} avatar={avatar} date={date} />
+        <UserInfo author={author} image={image} date={date} />
       </div>
     </div>
   );

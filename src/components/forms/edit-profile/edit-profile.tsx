@@ -12,7 +12,7 @@ type FormValues = {
   username: string;
   email: string;
   password: string;
-  avatar: string;
+  image: string;
 };
 
 const EditProfileSchema: ZodType<FormValues> = z.object({
@@ -27,7 +27,7 @@ const EditProfileSchema: ZodType<FormValues> = z.object({
     .min(6, { message: 'Your password needs to be at least 6 characters.' })
     .max(40, { message: 'Your password needs to be 40 characters maximum.' })
     .or(z.literal('')),
-  avatar: z.string().url().or(z.literal('')),
+  image: z.string().url().or(z.literal('')),
 });
 
 const EditProfile = () => {
@@ -113,11 +113,11 @@ const EditProfile = () => {
         <input
           type="text"
           placeholder="Avatar image"
-          className={`${classes.form__input} ${errors.avatar && classes['form__input--not-valid']}`}
-          {...register('avatar')}
+          className={`${classes.form__input} ${errors.image && classes['form__input--not-valid']}`}
+          {...register('image')}
         />
       </label>
-      {errors.avatar && <p className={classes['form__validation-message']}>{errors?.avatar?.message}</p>}
+      {errors.image && <p className={classes['form__validation-message']}>{errors?.avatar?.message}</p>}
       <input type="submit" value="Save" className={classes.form__submit} />
       {error}
     </form>

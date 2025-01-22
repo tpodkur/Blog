@@ -5,7 +5,7 @@ import { register, login, getUser, updateUser } from './user-thunks.ts';
 export type User = {
   username: string;
   email: string;
-  avatar?: string | null;
+  image?: string | null;
 };
 
 type UserState = {
@@ -61,10 +61,7 @@ export const userSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.loginStatus = 'success';
-      state.user = {
-        ...user,
-        avatar: user.image,
-      };
+      state.user = user;
     });
     builder.addCase(login.rejected, (state) => {
       state.requests.loginStatus = 'failed';
@@ -75,10 +72,7 @@ export const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.userStatus = 'success';
-      state.user = {
-        ...user,
-        avatar: user.image,
-      };
+      state.user = user;
     });
     builder.addCase(getUser.rejected, (state) => {
       state.requests.userStatus = 'failed';
@@ -89,10 +83,7 @@ export const userSlice = createSlice({
     builder.addCase(updateUser.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.updateStatus = 'success';
-      state.user = {
-        ...user,
-        avatar: user.image,
-      };
+      state.user = user;
     });
     builder.addCase(updateUser.rejected, (state) => {
       state.requests.updateStatus = 'failed';

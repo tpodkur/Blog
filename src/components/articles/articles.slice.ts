@@ -11,7 +11,7 @@ export type Article = {
   tags: string[];
   text: string;
   author: string;
-  avatar: string;
+  image: string;
   date: string;
   favorited: boolean;
   favoritesCount: number;

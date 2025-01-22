@@ -5,11 +5,11 @@ import classes from './user-info.module.scss';
 
 type UserInfoProps = {
   author: string;
-  avatar: string;
+  image: string;
   date?: string;
 };
 
-const UserInfo = ({ author, avatar, date }: UserInfoProps) => {
+const UserInfo = ({ author, image, date }: UserInfoProps) => {
   const [hasError, setHasError] = useState(false);
 
   return (
@@ -19,9 +19,9 @@ const UserInfo = ({ author, avatar, date }: UserInfoProps) => {
         {date && <p className={classes.date}>{format(new Date(date), 'PP')}</p>}
       </div>
       <img
-        className={classes.user__avatar}
-        src={hasError ? '/src/assets/user.png' : avatar}
-        alt="user avatar"
+        className={classes.user__image}
+        src={hasError ? '/src/assets/user.png' : image}
+        alt="user image"
         onError={() => setHasError(!hasError)}
       />
     </div>
