@@ -2,7 +2,6 @@ import axios from 'axios';
 import { z } from 'zod';
 
 import { Article } from '../components/articles/articles.slice.ts';
-import { User } from '../components/user-info/user.slice.ts';
 
 import { setToken } from './token-provider.ts';
 import authRequest from './auth-request.tsx';
@@ -83,17 +82,29 @@ export const api = {
     });
   },
 
-  updateUser: async (user: User) => {
+  updateUser: async ({
+    username,
+    email,
+    password,
+    avatar,
+  }: {
+    username?: string;
+    email?: string;
+    password?: string;
+    avatar?: string;
+  }) => {
     return authRequest
       .put(`${baseURL}/user`, {
         user: {
-          email: user.email,
-          username: user.username,
-          image: user.avatar,
+          username,
+          email,
+          password,
+          image: avatar,
         },
       })
       .then((response) => {
         const user = UserDto.parse(response.data.user);
+        setToken(user.token);
         return { user };
       });
   },

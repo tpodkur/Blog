@@ -20,7 +20,7 @@ const UserInfo = ({ author, avatar, date }: UserInfoProps) => {
       </div>
       <img
         className={classes.user__avatar}
-        src={hasError ? './src/assets/user.png' : avatar}
+        src={hasError ? '/src/assets/user.png' : avatar}
         alt="user avatar"
         onError={() => setHasError(!hasError)}
       />

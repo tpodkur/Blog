@@ -10,9 +10,7 @@ import classes from './header.module.scss';
 const Header = () => {
   const dispath = useAppDispath();
   const isUserLoggedIn = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
-  const { username, avatar = './src/assets/user.png' } =
-    useAppSelector((state) => userSlice.selectors.user(state)) ?? {};
-
+  const { username, avatar } = useAppSelector((state) => userSlice.selectors.user(state)) ?? {};
   const handleLodOut = () => dispath(logout());
 
   const profile = (

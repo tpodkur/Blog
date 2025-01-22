@@ -58,10 +58,13 @@ export const userSlice = createSlice({
     builder.addCase(login.pending, (state) => {
       state.requests.loginStatus = 'pending';
     });
-    builder.addCase(login.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+    builder.addCase(login.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.loginStatus = 'success';
-      state.user = user;
+      state.user = {
+        ...user,
+        avatar: user.image,
+      };
     });
     builder.addCase(login.rejected, (state) => {
       state.requests.loginStatus = 'failed';
@@ -69,10 +72,13 @@ export const userSlice = createSlice({
     builder.addCase(getUser.pending, (state) => {
       state.requests.userStatus = 'pending';
     });
-    builder.addCase(getUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+    builder.addCase(getUser.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.userStatus = 'success';
-      state.user = user;
+      state.user = {
+        ...user,
+        avatar: user.image,
+      };
     });
     builder.addCase(getUser.rejected, (state) => {
       state.requests.userStatus = 'failed';
@@ -80,10 +86,13 @@ export const userSlice = createSlice({
     builder.addCase(updateUser.pending, (state) => {
       state.requests.updateStatus = 'pending';
     });
-    builder.addCase(updateUser.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
+    builder.addCase(updateUser.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.updateStatus = 'success';
-      state.user = user;
+      state.user = {
+        ...user,
+        avatar: user.image,
+      };
     });
     builder.addCase(updateUser.rejected, (state) => {
       state.requests.updateStatus = 'failed';
