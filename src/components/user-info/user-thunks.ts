@@ -39,3 +39,22 @@ export const logout = (): AppThunk => (dispatch) => {
   removeToken();
   dispatch(userSlice.actions.removeUser());
 };
+
+export const updateUser = createAppAsyncThunk(
+  'user/updateUser',
+  async (
+    user: {
+      username?: string;
+      email?: string;
+      password?: string;
+      image?: string;
+    },
+    thunkAPI
+  ) => {
+    try {
+      return await thunkAPI.extra.api.updateUser(user);
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.response.data.errors });
+    }
+  }
+);

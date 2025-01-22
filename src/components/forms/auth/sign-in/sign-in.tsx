@@ -41,9 +41,7 @@ const SignIn = () => {
     });
   });
 
-  const error = errorMessage.length ? (
-    <span className={classes['form__request-error-message']}>{errorMessage}</span>
-  ) : null;
+  const error = errorMessage.length ? <span className={classes['form__error-message']}>{errorMessage}</span> : null;
 
   return (
     <form method="post" onSubmit={onSubmit} className={classes.form}>

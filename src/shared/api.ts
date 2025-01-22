@@ -2,6 +2,7 @@ import axios from 'axios';
 import { z } from 'zod';
 
 import { Article } from '../components/articles/articles.slice.ts';
+import { User } from '../components/user-info/user.slice.ts';
 
 import { setToken } from './token-provider.ts';
 import authRequest from './auth-request.tsx';
@@ -33,6 +34,8 @@ const UserDto = z.object({
   email: z.string(),
   token: z.string(),
   username: z.string(),
+  bio: z.string().optional(),
+  image: z.string().optional(),
 });
 
 type ServerArticle = z.infer<typeof ArticleDto>;
@@ -78,6 +81,21 @@ export const api = {
       const user = response.data.user;
       return { user };
     });
+  },
+
+  updateUser: async (user: User) => {
+    return authRequest
+      .put(`${baseURL}/user`, {
+        user: {
+          email: user.email,
+          username: user.username,
+          image: user.avatar,
+        },
+      })
+      .then((response) => {
+        const user = UserDto.parse(response.data.user);
+        return { user };
+      });
   },
 };
 
