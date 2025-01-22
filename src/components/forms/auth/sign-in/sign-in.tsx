@@ -51,7 +51,7 @@ const SignIn = () => {
         <input
           type="email"
           placeholder="Email address"
-          className={`${classes.form__input} ${errors.email && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.email && classes['input--not-valid']}`}
           {...register('email')}
         />
         {errors.email && <p className={classes['form__validation-message']}>{errors?.email?.message}</p>}
@@ -61,7 +61,7 @@ const SignIn = () => {
         <input
           type="password"
           placeholder="Password"
-          className={`${classes.form__input} ${errors.password && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.password && classes['input--not-valid']}`}
           {...register('password')}
         />
       </label>

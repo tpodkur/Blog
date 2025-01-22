@@ -74,7 +74,7 @@ const SignUp = () => {
         <input
           type="text"
           placeholder="Username"
-          className={`${classes.form__input} ${errors.username && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.username && classes['input--not-valid']}`}
           {...register('username')}
         />
       </label>
@@ -84,7 +84,7 @@ const SignUp = () => {
         <input
           type="email"
           placeholder="Email address"
-          className={`${classes.form__input} ${errors.email && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.email && classes['input--not-valid']}`}
           {...register('email')}
         />
       </label>
@@ -94,7 +94,7 @@ const SignUp = () => {
         <input
           type="password"
           placeholder="Password"
-          className={`${classes.form__input} ${errors.password && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.password && classes['input--not-valid']}`}
           {...register('password')}
         />
       </label>
@@ -104,7 +104,7 @@ const SignUp = () => {
         <input
           type="password"
           placeholder="Repeat password"
-          className={`${classes.form__input} ${errors.confirmPassword && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.confirmPassword && classes['input--not-valid']}`}
           {...register('confirmPassword')}
         />
       </label>

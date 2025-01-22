@@ -83,7 +83,7 @@ const EditProfile = () => {
         <input
           type="text"
           placeholder="Username"
-          className={`${classes.form__input} ${errors.username && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.username && classes['input--not-valid']}`}
           {...register('username')}
         />
       </label>
@@ -93,7 +93,7 @@ const EditProfile = () => {
         <input
           type="email"
           placeholder="Email address"
-          className={`${classes.form__input} ${errors.email && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.email && classes['input--not-valid']}`}
           {...register('email')}
         />
         {errors.email && <p className={classes['form__validation-message']}>{errors?.email?.message}</p>}
@@ -103,7 +103,7 @@ const EditProfile = () => {
         <input
           type="password"
           placeholder="New password"
-          className={`${classes.form__input} ${errors.password && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.password && classes['input--not-valid']}`}
           {...register('password')}
         />
       </label>
@@ -113,7 +113,7 @@ const EditProfile = () => {
         <input
           type="text"
           placeholder="Avatar image"
-          className={`${classes.form__input} ${errors.image && classes['form__input--not-valid']}`}
+          className={`${classes.input} ${errors.image && classes['input--not-valid']}`}
           {...register('image')}
         />
       </label>
