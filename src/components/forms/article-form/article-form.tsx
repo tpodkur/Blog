@@ -37,6 +37,7 @@ type ArticleFormProps = {
   text?: string;
   tags?: string[];
   actionThunkToDispatchBySubmit: CallbackFunction;
+  doReset: boolean;
 };
 
 const CreateArticleSchema: ZodType<FormValues> = z.object({
@@ -58,6 +59,7 @@ const ArticleForm = ({
   text,
   tags,
   actionThunkToDispatchBySubmit,
+  doReset,
 }: ArticleFormProps) => {
   const dispatch = useAppDispath();
   const {
@@ -99,7 +101,7 @@ const ArticleForm = ({
         text,
         tags: tags.filter((tagField) => !!tagField.value.length).map((tagField) => tagField.value),
       })
-    ).then(() => reset());
+    ).then(() => doReset && reset());
   });
 
   const tagsList = fields.map((field, index) => {

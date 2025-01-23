@@ -85,6 +85,7 @@ export const deleteArticle = createAppAsyncThunk('article/deleteArticle', async 
   try {
     await thunkAPI.extra.api.deleteArticle(id);
     await thunkAPI.extra.router.navigate('/articles');
+    thunkAPI.dispatch(requestArticles({ refetch: true }));
   } catch (error) {
     console.error(error);
     return thunkAPI.rejectWithValue(error);

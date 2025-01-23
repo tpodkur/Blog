@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { createArticle, deleteArticle, requestArticles } from './articles-thunks.ts';
+import { createArticle, deleteArticle, requestArticles, updateArticle } from './articles-thunks.ts';
 
 export type ArticleId = string;
 
@@ -26,6 +26,7 @@ type ArticlesState = {
   requestArticlesStatus: 'idle' | 'pending' | 'success' | 'failed';
   requestArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
   createArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
+  updateArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
   deleteArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
 };
 
@@ -37,6 +38,7 @@ const initialArticlesState: ArticlesState = {
   requestArticlesStatus: 'idle',
   requestArticleStatus: 'idle',
   createArticleStatus: 'idle',
+  updateArticleStatus: 'idle',
   deleteArticleStatus: 'idle',
 };
 
@@ -121,11 +123,27 @@ export const articlesSlice = createSlice({
     builder.addCase(createArticle.pending, (state) => {
       state.createArticleStatus = 'pending';
     });
-    builder.addCase(createArticle.fulfilled, (state) => {
+    builder.addCase(createArticle.fulfilled, (state, action) => {
+      const { article } = action.payload;
       state.createArticleStatus = 'success';
+      state.entities[article.id] = article;
+      state.ids.pop();
+      state.ids = [article.id, ...state.ids];
+      state.count++;
     });
     builder.addCase(createArticle.rejected, (state) => {
       state.createArticleStatus = 'failed';
+    });
+    builder.addCase(updateArticle.pending, (state) => {
+      state.updateArticleStatus = 'pending';
+    });
+    builder.addCase(updateArticle.fulfilled, (state, action) => {
+      const { article } = action.payload;
+      state.updateArticleStatus = 'success';
+      state.entities[article.id] = article;
+    });
+    builder.addCase(updateArticle.rejected, (state) => {
+      state.updateArticleStatus = 'failed';
     });
     builder.addCase(deleteArticle.pending, (state) => {
       state.deleteArticleStatus = 'pending';

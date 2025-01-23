@@ -19,7 +19,9 @@ const EditArticle = () => {
     </div>
   );
 
-  const content = <ArticleForm {...article} formName={'Edit article'} actionThunkToDispatchBySubmit={updateArticle} />;
+  const content = (
+    <ArticleForm {...article} formName={'Edit article'} actionThunkToDispatchBySubmit={updateArticle} doReset={false} />
+  );
 
   return <div className={classes['edit-article']}>{isPending || !article ? spinner : content}</div>;
 };
