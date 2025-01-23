@@ -91,3 +91,14 @@ export const deleteArticle = createAppAsyncThunk('article/deleteArticle', async 
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+export const favoriteArticle = createAppAsyncThunk(
+  'article/favoriteArticle',
+  async ({ id }: { id: string }, thunkAPI) => {
+    try {
+      return await thunkAPI.extra.api.favoriteArticle(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);

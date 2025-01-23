@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { Article } from '../components/articles/articles.slice.ts';
 
-import { setToken } from './token-provider.ts';
+import { getToken, setToken } from './token-provider.ts';
 import authRequest from './auth-request.tsx';
 
 const baseURL = 'https://blog-platform.kata.academy/api';
@@ -41,7 +41,10 @@ type ServerArticle = z.infer<typeof ArticleDto>;
 
 export const api = {
   getArticles: async (offset: number = 0) => {
-    return await axios.get(`${baseURL}/articles?offset=${offset}`).then((response) => {
+    const isAuthorized = !!getToken();
+    const requestProvider = isAuthorized ? authRequest : axios;
+
+    return requestProvider.get(`${baseURL}/articles?offset=${offset}`).then((response) => {
       const { articles, articlesCount } = ArticlesDto.parse(response.data);
       return {
         articles: articles.map((article) => serverArticleToArticle(article)),
@@ -147,6 +150,15 @@ export const api = {
 
   deleteArticle: async (id: string) => {
     return authRequest.delete(`${baseURL}/articles/${id}`);
+  },
+
+  favoriteArticle: async (id: string) => {
+    return authRequest.post(`${baseURL}/articles/${id}/favorite`).then((response) => {
+      const article = ArticleDto.parse(response.data.article);
+      return {
+        article: serverArticleToArticle(article),
+      };
+    });
   },
 };
 

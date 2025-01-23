@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { createArticle, deleteArticle, requestArticles, updateArticle } from './articles-thunks.ts';
+import { createArticle, deleteArticle, favoriteArticle, requestArticles, updateArticle } from './articles-thunks.ts';
 
 export type ArticleId = string;
 
@@ -28,6 +28,7 @@ type ArticlesState = {
   createArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
   updateArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
   deleteArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
+  favoriteArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
 };
 
 const initialArticlesState: ArticlesState = {
@@ -40,6 +41,7 @@ const initialArticlesState: ArticlesState = {
   createArticleStatus: 'idle',
   updateArticleStatus: 'idle',
   deleteArticleStatus: 'idle',
+  favoriteArticleStatus: 'idle',
 };
 
 export const articlesSlice = createSlice({
@@ -153,6 +155,18 @@ export const articlesSlice = createSlice({
     });
     builder.addCase(deleteArticle.rejected, (state) => {
       state.deleteArticleStatus = 'failed';
+    });
+    builder.addCase(favoriteArticle.pending, (state) => {
+      state.favoriteArticleStatus = 'pending';
+    });
+    builder.addCase(favoriteArticle.fulfilled, (state, action) => {
+      const { article } = action.payload;
+      state.favoriteArticleStatus = 'success';
+      state.entities[article.id].favorited = article.favorited;
+      state.entities[article.id].favoritesCount = article.favoritesCount;
+    });
+    builder.addCase(favoriteArticle.rejected, (state) => {
+      state.favoriteArticleStatus = 'failed';
     });
   },
 });

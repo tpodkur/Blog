@@ -1,5 +1,6 @@
 import { AppThunk, createAppAsyncThunk } from '../../redux.ts';
 import { removeToken } from '../../shared/token-provider.ts';
+import { requestArticles } from '../articles/articles-thunks.ts';
 
 import { userSlice } from './user.slice.ts';
 
@@ -19,6 +20,7 @@ export const login = createAppAsyncThunk(
   async ({ email, password }: { email: string; password: string }, thunkAPI) => {
     try {
       const res = await thunkAPI.extra.api.login(email, password);
+      await thunkAPI.dispatch(requestArticles({ refetch: true }));
       await thunkAPI.extra.router.navigate('/articles');
       return res;
     } catch (error) {
@@ -38,6 +40,7 @@ export const getUser = createAppAsyncThunk('user/getUser', async (_, thunkAPI) =
 export const logout = (): AppThunk => (dispatch) => {
   removeToken();
   dispatch(userSlice.actions.removeUser());
+  dispatch(requestArticles({ refetch: true }));
 };
 
 export const updateUser = createAppAsyncThunk(

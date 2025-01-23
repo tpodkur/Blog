@@ -6,7 +6,7 @@ import { useAppDispath, useAppSelector } from '../../../redux.ts';
 import { userSlice } from '../../user-info/user.slice.ts';
 import UserInfo from '../../user-info/user-info.tsx';
 import { Article as ArticleType } from '../articles.slice.ts';
-import { deleteArticle } from '../articles-thunks.ts';
+import { deleteArticle, favoriteArticle } from '../articles-thunks.ts';
 
 import classes from './article.module.scss';
 
@@ -19,6 +19,7 @@ type ArticleProps = {
 const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps) => {
   const { title, tags, text, author, image, date, favorited, favoritesCount } = article;
   const user = useAppSelector((state) => userSlice.selectors.user(state));
+  const isAuthorized = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
   const isMineArticle = author === user?.username;
   const dispatch = useAppDispath();
 
@@ -39,6 +40,10 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
 
   const onDeleteArticle = () => {
     dispatch(deleteArticle({ id: article.id }));
+  };
+
+  const onLike = () => {
+    dispatch(favoriteArticle({ id: article.id }));
   };
 
   const actionButtons = (
@@ -80,7 +85,7 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
           <Link to={`/articles/${article.id}`} className={classes.link}>
             <h3 className={classes.article__title}>{title}</h3>
           </Link>
-          <button className={`${classes.article__likes} ${classes.likes}`} disabled={true}>
+          <button className={`${classes.article__likes} ${classes.likes}`} disabled={!isAuthorized} onClick={onLike}>
             <span className={classes.likes__logo}>
               <img src={favorited ? '/src/assets/like--active.svg' : '/src/assets/like.svg'} />
             </span>
