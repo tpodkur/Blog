@@ -1,0 +1,11 @@
+.please-auth-message {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__text {
+    font-size: 26px;
+    color: #F5222D;
+  }
+}

@@ -11,6 +11,8 @@ import SignUp from '../components/forms/auth/sign-up/sign-up.tsx';
 import EditProfile from '../components/forms/edit-profile/edit-profile.tsx';
 import CreateArticle from '../components/articles/create-article/create-article.tsx';
 import EditArticle from '../components/articles/edit-article/edit-article.tsx';
+import PleaseAuthMessage from '../components/please-auth-message/please-auth-message.tsx';
+import PageNotFound from '../components/page-not-found/page-not-found.tsx';
 
 import store from './store.ts';
 
@@ -50,6 +52,10 @@ export const router = createBrowserRouter([
         Component: SignUp,
       },
       {
+        path: 'unauthorized',
+        Component: PleaseAuthMessage,
+      },
+      {
         Component: PrivateRoutes,
         children: [
           {
@@ -69,6 +75,10 @@ export const router = createBrowserRouter([
             },
           },
         ],
+      },
+      {
+        path: '*',
+        Component: PageNotFound,
       },
     ],
   },
