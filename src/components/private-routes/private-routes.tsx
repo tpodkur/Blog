@@ -1,12 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useAppSelector } from '../../redux.ts';
-import { userSlice } from '../user-info/user.slice.ts';
+import { getToken } from '../../shared/token-provider.ts';
 
 const PrivateRoutes = () => {
-  const isLoggedIn = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
-
-  return isLoggedIn ? <Outlet /> : <Navigate to="/unauthorized" replace />;
+  return getToken() ? <Outlet /> : <Navigate to="/unauthorized" replace />;
 };
 
 export default PrivateRoutes;
