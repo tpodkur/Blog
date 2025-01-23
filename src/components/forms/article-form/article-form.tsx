@@ -5,7 +5,7 @@ import { Button } from 'antd';
 
 import classes from '../form.module.scss';
 import { useAppDispath } from '../../../redux.ts';
-import { createArticle } from '../../articles/articles-thunks.ts';
+import { type Article } from '../../articles/articles.slice.ts';
 
 type FormValues = {
   title: string;
@@ -16,12 +16,27 @@ type FormValues = {
   }[];
 };
 
-type CreateArticleProps = {
+type CallbackFunction = ({
+  id,
+  title,
+  description,
+  text,
+  tags,
+}: {
+  id?: string;
+  title: string;
+  description: string;
+  text: string;
+  tags?: string[];
+}) => Promise<{ article: Article }>;
+
+type ArticleFormProps = {
   formName: string;
   title?: string;
   description?: string;
   text?: string;
   tags?: string[];
+  actionThunkToDispatchBySubmit: CallbackFunction;
 };
 
 const CreateArticleSchema: ZodType<FormValues> = z.object({
@@ -35,7 +50,15 @@ const CreateArticleSchema: ZodType<FormValues> = z.object({
   ),
 });
 
-const ArticleForm = ({ formName, title, description, text, tags }: CreateArticleProps) => {
+const ArticleForm = ({
+  formName,
+  id,
+  title,
+  description,
+  text,
+  tags,
+  actionThunkToDispatchBySubmit,
+}: ArticleFormProps) => {
   const dispatch = useAppDispath();
   const {
     register,
@@ -69,14 +92,14 @@ const ArticleForm = ({ formName, title, description, text, tags }: CreateArticle
   const onSubmit = handleSubmit((data) => {
     const { title, description, text, tags } = data;
     dispatch(
-      createArticle({
+      actionThunkToDispatchBySubmit({
+        id,
         title,
         description,
         text,
         tags: tags.filter((tagField) => !!tagField.value.length).map((tagField) => tagField.value),
       })
-    );
-    reset();
+    ).then(() => reset());
   });
 
   const tagsList = fields.map((field, index) => {

@@ -126,6 +126,24 @@ export const api = {
         };
       });
   },
+
+  updateArticle: async (id: string, title: string, description: string, text: string, tagList?: string[]) => {
+    return authRequest
+      .put(`${baseURL}/articles/${id}`, {
+        article: {
+          title,
+          description,
+          body: text,
+          tagList,
+        },
+      })
+      .then((response) => {
+        const article = ArticleDto.parse(response.data.article);
+        return {
+          article: serverArticleToArticle(article),
+        };
+      });
+  },
 };
 
 const serverArticleToArticle = (response: ServerArticle): Article => {
@@ -134,6 +152,7 @@ const serverArticleToArticle = (response: ServerArticle): Article => {
     title: response.title,
     tags: response.tagList || [],
     text: response.body ? response.body : '',
+    description: response.description,
     author: response.author.username,
     image: response.author.image,
     date: response.createdAt,

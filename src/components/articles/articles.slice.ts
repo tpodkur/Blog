@@ -10,6 +10,7 @@ export type Article = {
   title: string;
   tags: string[];
   text: string;
+  description: string;
   author: string;
   image: string;
   date: string;

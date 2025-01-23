@@ -59,3 +59,23 @@ export const createArticle = createAppAsyncThunk(
     }
   }
 );
+
+export const updateArticle = createAppAsyncThunk(
+  'article/updateArticle',
+  async (
+    {
+      id,
+      title,
+      description,
+      text,
+      tagList,
+    }: { id: string; title: string; description: string; text: string; tagList?: string[] },
+    thunkAPI
+  ) => {
+    try {
+      return await thunkAPI.extra.api.updateArticle(id, title, description, text, tagList);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
