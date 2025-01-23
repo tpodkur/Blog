@@ -35,7 +35,7 @@ const ArticleList = () => {
         {articles.map((article) => {
           return (
             <li className={classes.article} key={article.id}>
-              <Article article={article} smallSize={true} showButtonsBlock={false} />
+              <Article article={article} smallSize={true} isArticlePage={false} />
             </li>
           );
         })}

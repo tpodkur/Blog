@@ -13,10 +13,10 @@ import classes from './article.module.scss';
 type ArticleProps = {
   article: ArticleType;
   smallSize: boolean;
-  showButtonsBlock: boolean;
+  isArticlePage: boolean;
 };
 
-const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps) => {
+const Article = ({ article, smallSize, isArticlePage = false }: ArticleProps) => {
   const { title, tags, text, author, image, date, favorited, favoritesCount } = article;
   const user = useAppSelector((state) => userSlice.selectors.user(state));
   const isAuthorized = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
@@ -79,13 +79,18 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
     </div>
   );
 
+  const titleTextElement = <h3 className={classes.article__title}>{title}</h3>;
+  const titleLinkElement = (
+    <Link to={`/articles/${article.id}`} className={classes.link}>
+      {titleTextElement}
+    </Link>
+  );
+
   return (
     <div className={classes.article}>
       <div className={classes.article__content}>
         <div className={classes.article__header}>
-          <Link to={`/articles/${article.id}`} className={classes.link}>
-            <h3 className={classes.article__title}>{title}</h3>
-          </Link>
+          {isArticlePage ? titleTextElement : titleLinkElement}
           <button className={`${classes.article__likes} ${classes.likes}`} disabled={!isAuthorized} onClick={onLike}>
             <span className={classes.likes__logo}>
               <img src={favorited ? '/src/assets/like--active.svg' : '/src/assets/like.svg'} />
@@ -106,7 +111,7 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
       </div>
       <div>
         <UserInfo author={author} image={image} date={date} />
-        {showButtonsBlock && isMineArticle && actionButtons}
+        {isArticlePage && isMineArticle && actionButtons}
       </div>
     </div>
   );
