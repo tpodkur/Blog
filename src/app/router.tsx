@@ -53,11 +53,11 @@ export const router = createBrowserRouter([
         Component: EditProfile,
       },
       {
-        path: 'create-article',
+        path: 'new-article',
         Component: CreateArticle,
       },
       {
-        path: 'edit-article/:articleId',
+        path: 'articles/:articleId/edit',
         Component: EditArticle,
         loader: ({ params }) => {
           loadStore().then(() => store.dispatch(requestArticle(params.articleId ?? '')));
