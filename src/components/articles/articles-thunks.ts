@@ -102,3 +102,14 @@ export const favoriteArticle = createAppAsyncThunk(
     }
   }
 );
+
+export const unfavoriteArticle = createAppAsyncThunk(
+  'article/unfavoriteArticle',
+  async ({ id }: { id: string }, thunkAPI) => {
+    try {
+      return await thunkAPI.extra.api.unfavoriteArticle(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);

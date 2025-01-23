@@ -6,7 +6,7 @@ import { useAppDispath, useAppSelector } from '../../../redux.ts';
 import { userSlice } from '../../user-info/user.slice.ts';
 import UserInfo from '../../user-info/user-info.tsx';
 import { Article as ArticleType } from '../articles.slice.ts';
-import { deleteArticle, favoriteArticle } from '../articles-thunks.ts';
+import { deleteArticle, favoriteArticle, unfavoriteArticle } from '../articles-thunks.ts';
 
 import classes from './article.module.scss';
 
@@ -43,7 +43,8 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
   };
 
   const onLike = () => {
-    dispatch(favoriteArticle({ id: article.id }));
+    const likeAction = favorited ? unfavoriteArticle : favoriteArticle;
+    dispatch(likeAction({ id: article.id }));
   };
 
   const actionButtons = (

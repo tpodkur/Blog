@@ -54,7 +54,10 @@ export const api = {
   },
 
   getArticleById: async (articleId: string) => {
-    return await axios.get(`${baseURL}/articles/${articleId}`).then((response) => {
+    const isAuthorized = !!getToken();
+    const requestProvider = isAuthorized ? authRequest : axios;
+
+    return requestProvider.get(`${baseURL}/articles/${articleId}`).then((response) => {
       const article = ArticleDto.parse(response.data.article);
       return {
         article: serverArticleToArticle(article),
@@ -154,6 +157,15 @@ export const api = {
 
   favoriteArticle: async (id: string) => {
     return authRequest.post(`${baseURL}/articles/${id}/favorite`).then((response) => {
+      const article = ArticleDto.parse(response.data.article);
+      return {
+        article: serverArticleToArticle(article),
+      };
+    });
+  },
+
+  unfavoriteArticle: async (id: string) => {
+    return authRequest.delete(`${baseURL}/articles/${id}/favorite`).then((response) => {
       const article = ArticleDto.parse(response.data.article);
       return {
         article: serverArticleToArticle(article),
