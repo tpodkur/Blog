@@ -29,6 +29,7 @@
   &:hover {
     cursor: pointer;
     opacity: 0.7;
+    transition: opacity 0.3s;
   }
 }
 
@@ -47,6 +48,7 @@
   &:hover {
     cursor: pointer;
     opacity: 0.7;
+    transition: opacity 0.3s;
   }
 
   &--bordered {
