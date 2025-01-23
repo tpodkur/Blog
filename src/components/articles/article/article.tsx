@@ -2,6 +2,8 @@ import Markdown from 'markdown-to-jsx';
 import { Link } from 'react-router-dom';
 import { Button, ConfigProvider } from 'antd';
 
+import { useAppSelector } from '../../../redux.ts';
+import { userSlice } from '../../user-info/user.slice.ts';
 import UserInfo from '../../user-info/user-info.tsx';
 import { Article as ArticleType } from '../articles.slice.ts';
 
@@ -15,6 +17,8 @@ type ArticleProps = {
 
 const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps) => {
   const { title, tags, text, author, image, date, favorited, favoritesCount } = article;
+  const user = useAppSelector((state) => userSlice.selectors.user(state));
+  const isMineArticle = author === user?.username;
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
     if (linesCount <= 0) return '';
@@ -80,7 +84,7 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
       </div>
       <div>
         <UserInfo author={author} image={image} date={date} />
-        {showButtonsBlock && actionButtons}
+        {showButtonsBlock && isMineArticle && actionButtons}
       </div>
     </div>
   );
