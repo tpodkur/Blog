@@ -3,6 +3,7 @@ import { redirect } from 'react-router-dom';
 
 import { requestArticles, requestArticle } from '../components/articles/articles-thunks.ts';
 import App from '../components/app/app.tsx';
+import PrivateRoutes from '../components/private-routes/private-routes.tsx';
 import ArticleList from '../components/articles/article-list/article-list.tsx';
 import ArticlePage from '../components/articles/article-page/article-page.tsx';
 import SignIn from '../components/forms/auth/sign-in/sign-in.tsx';
@@ -49,20 +50,25 @@ export const router = createBrowserRouter([
         Component: SignUp,
       },
       {
-        path: 'edit-profile',
-        Component: EditProfile,
-      },
-      {
-        path: 'new-article',
-        Component: CreateArticle,
-      },
-      {
-        path: 'articles/:articleId/edit',
-        Component: EditArticle,
-        loader: ({ params }) => {
-          loadStore().then(() => store.dispatch(requestArticle(params.articleId ?? '')));
-          return null;
-        },
+        Component: PrivateRoutes,
+        children: [
+          {
+            path: 'edit-profile',
+            Component: EditProfile,
+          },
+          {
+            path: 'new-article',
+            Component: CreateArticle,
+          },
+          {
+            path: 'articles/:articleId/edit',
+            Component: EditArticle,
+            loader: ({ params }) => {
+              loadStore().then(() => store.dispatch(requestArticle(params.articleId ?? '')));
+              return null;
+            },
+          },
+        ],
       },
     ],
   },
