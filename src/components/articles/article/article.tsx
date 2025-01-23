@@ -1,6 +1,6 @@
 import Markdown from 'markdown-to-jsx';
 import { Link } from 'react-router-dom';
-import { Button, ConfigProvider } from 'antd';
+import { Button, ConfigProvider, Popconfirm } from 'antd';
 
 import { useAppDispath, useAppSelector } from '../../../redux.ts';
 import { userSlice } from '../../user-info/user.slice.ts';
@@ -43,9 +43,17 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
 
   const actionButtons = (
     <div className={classes.buttons}>
-      <Button danger onClick={onDeleteArticle}>
-        Delete
-      </Button>
+      <Popconfirm
+        title={'Are you sure to delete this article?'}
+        placement="rightTop"
+        okText="Yes"
+        cancelText="No"
+        overlayClassName={classes.popconfirm}
+        onConfirm={onDeleteArticle}
+      >
+        <Button danger>Delete</Button>
+      </Popconfirm>
+
       <ConfigProvider
         theme={{
           components: {
