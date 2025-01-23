@@ -25,19 +25,23 @@ const Header = () => {
           <UserInfo author={username} image={image} />
         </span>
       </Link>
-      <div className={`${classes.button} ${classes['button--bordered']}`} onClick={handleLodOut}>
+      <button className={`${classes.button} ${classes['button--bordered']}`} onClick={handleLodOut}>
         Log Out
-      </div>
+      </button>
     </div>
   );
 
   const login = (
     <div className={classes.login}>
       <Link to="sign-in" className={classes.link}>
-        <div className={`${classes.button}`}>Sign In</div>
+        <button tabIndex={-1} className={classes.button}>
+          Sign In
+        </button>
       </Link>
       <Link to="sign-up" className={classes.link}>
-        <div className={`${classes.button} ${classes['button--accent']}`}>Sign Up</div>
+        <button tabIndex={-1} className={`${classes.button} ${classes['button--accent']}`}>
+          Sign Up
+        </button>
       </Link>
     </div>
   );

@@ -72,7 +72,7 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
           },
         }}
       >
-        <Link to={`/articles/${article.id}/edit`}>
+        <Link to={`/articles/${article.id}/edit`} tabIndex={-1}>
           <Button>Edit</Button>
         </Link>
       </ConfigProvider>
