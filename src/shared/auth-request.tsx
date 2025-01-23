@@ -32,14 +32,17 @@ const authRequest = {
     return axios.get(url, options);
   },
   post: async (url: string, data: object, config: AxiosRequestConfig = {}) => {
+    checkToken();
     const options = addAuthHeader(config);
     return axios.post(url, data, options);
   },
   put: async (url: string, data: object, config: AxiosRequestConfig = {}) => {
+    checkToken();
     const options = addAuthHeader(config);
     return axios.put(url, data, options);
   },
   delete: async (url: string, config: AxiosRequestConfig = {}) => {
+    checkToken();
     const options = addAuthHeader(config);
     return axios.delete(url, options);
   },
