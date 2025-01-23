@@ -2,10 +2,11 @@ import Markdown from 'markdown-to-jsx';
 import { Link } from 'react-router-dom';
 import { Button, ConfigProvider } from 'antd';
 
-import { useAppSelector } from '../../../redux.ts';
+import { useAppDispath, useAppSelector } from '../../../redux.ts';
 import { userSlice } from '../../user-info/user.slice.ts';
 import UserInfo from '../../user-info/user-info.tsx';
 import { Article as ArticleType } from '../articles.slice.ts';
+import { deleteArticle } from '../articles-thunks.ts';
 
 import classes from './article.module.scss';
 
@@ -19,6 +20,7 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
   const { title, tags, text, author, image, date, favorited, favoritesCount } = article;
   const user = useAppSelector((state) => userSlice.selectors.user(state));
   const isMineArticle = author === user?.username;
+  const dispatch = useAppDispath();
 
   const shortenText = (charactersPerLine: number, linesCount: number, text: string) => {
     if (linesCount <= 0) return '';
@@ -35,9 +37,15 @@ const Article = ({ article, smallSize, showButtonsBlock = false }: ArticleProps)
   const tagsLinesCount = Math.ceil(tagsLengthInSymbols / 42);
   const shortText = shortenText(100, 3 - tagsLinesCount, text);
 
+  const onDeleteArticle = () => {
+    dispatch(deleteArticle({ id: article.id }));
+  };
+
   const actionButtons = (
     <div className={classes.buttons}>
-      <Button danger>Delete</Button>
+      <Button danger onClick={onDeleteArticle}>
+        Delete
+      </Button>
       <ConfigProvider
         theme={{
           components: {

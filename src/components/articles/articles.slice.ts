@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { createArticle, requestArticles } from './articles-thunks.ts';
+import { createArticle, deleteArticle, requestArticles } from './articles-thunks.ts';
 
 export type ArticleId = string;
 
@@ -26,6 +26,7 @@ type ArticlesState = {
   requestArticlesStatus: 'idle' | 'pending' | 'success' | 'failed';
   requestArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
   createArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
+  deleteArticleStatus: 'idle' | 'pending' | 'success' | 'failed';
 };
 
 const initialArticlesState: ArticlesState = {
@@ -36,6 +37,7 @@ const initialArticlesState: ArticlesState = {
   requestArticlesStatus: 'idle',
   requestArticleStatus: 'idle',
   createArticleStatus: 'idle',
+  deleteArticleStatus: 'idle',
 };
 
 export const articlesSlice = createSlice({
@@ -124,6 +126,15 @@ export const articlesSlice = createSlice({
     });
     builder.addCase(createArticle.rejected, (state) => {
       state.createArticleStatus = 'failed';
+    });
+    builder.addCase(deleteArticle.pending, (state) => {
+      state.deleteArticleStatus = 'pending';
+    });
+    builder.addCase(deleteArticle.fulfilled, (state) => {
+      state.deleteArticleStatus = 'success';
+    });
+    builder.addCase(deleteArticle.rejected, (state) => {
+      state.deleteArticleStatus = 'failed';
     });
   },
 });

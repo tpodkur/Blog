@@ -75,7 +75,18 @@ export const updateArticle = createAppAsyncThunk(
     try {
       return await thunkAPI.extra.api.updateArticle(id, title, description, text, tagList);
     } catch (error) {
+      console.error(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
+
+export const deleteArticle = createAppAsyncThunk('article/deleteArticle', async ({ id }: { id: string }, thunkAPI) => {
+  try {
+    await thunkAPI.extra.api.deleteArticle(id);
+    await thunkAPI.extra.router.navigate('/articles');
+  } catch (error) {
+    console.error(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});

@@ -144,6 +144,10 @@ export const api = {
         };
       });
   },
+
+  deleteArticle: async (id: string) => {
+    return authRequest.delete(`${baseURL}/articles/${id}`);
+  },
 };
 
 const serverArticleToArticle = (response: ServerArticle): Article => {

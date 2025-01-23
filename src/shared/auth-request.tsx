@@ -39,6 +39,10 @@ const authRequest = {
     const options = addAuthHeader(config);
     return axios.put(url, data, options);
   },
+  delete: async (url: string, config: AxiosRequestConfig = {}) => {
+    const options = addAuthHeader(config);
+    return axios.delete(url, options);
+  },
 };
 
 export default authRequest;
