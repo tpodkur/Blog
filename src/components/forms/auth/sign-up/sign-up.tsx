@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import classes from '../../form.module.scss';
 import { useAppDispath } from '../../../../redux.ts';
-import { register as userRegister } from '../../../user-info/user-thunks.ts';
+import { register as userRegister } from '../../../user/user-thunks.ts';
 import { extractError } from '../../../../shared/auth-provider.ts';
 
 type FormValues = {

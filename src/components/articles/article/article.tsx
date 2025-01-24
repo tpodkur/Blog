@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button, ConfigProvider, Popconfirm } from 'antd';
 
 import { useAppDispath, useAppSelector } from '../../../redux.ts';
-import { userSlice } from '../../user-info/user.slice.ts';
-import UserInfo from '../../user-info/user-info.tsx';
+import { userSlice } from '../../user/user.slice.ts';
+import UserInfo from '../../user/user-info/user-info.tsx';
 import { Article as ArticleType } from '../articles.slice.ts';
 import { deleteArticle, favoriteArticle, unfavoriteArticle } from '../articles-thunks.ts';
 

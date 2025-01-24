@@ -4,7 +4,7 @@ import { z, ZodType } from 'zod';
 import { useState } from 'react';
 
 import classes from '../form.module.scss';
-import { updateUser } from '../../user-info/user-thunks.ts';
+import { updateUser } from '../../user/user-thunks.ts';
 import { extractError } from '../../../shared/auth-provider.ts';
 import { useAppDispath } from '../../../redux.ts';
 

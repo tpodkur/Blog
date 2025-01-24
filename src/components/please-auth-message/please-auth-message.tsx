@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 
 import SignIn from '../forms/auth/sign-in/sign-in.tsx';
 import { useAppSelector } from '../../redux.ts';
-import { userSlice } from '../user-info/user.slice.ts';
+import { userSlice } from '../user/user.slice.ts';
 
 import classes from './please-auth-message.module.scss';
 

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
 import { useAppDispath, useAppSelector } from '../../redux.ts';
-import { userSlice } from '../user-info/user.slice.ts';
-import UserInfo from '../user-info/user-info.tsx';
-import { logout } from '../user-info/user-thunks.ts';
+import { userSlice } from '../user/user.slice.ts';
+import UserInfo from '../user/user-info/user-info.tsx';
+import { logout } from '../user/user-thunks.ts';
 
 import classes from './header.module.scss';
 

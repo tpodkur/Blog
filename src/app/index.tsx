@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
-import { getUser } from '../components/user-info/user-thunks.ts';
+import { getUser } from '../components/user/user-thunks.ts';
 import { getToken } from '../shared/token-provider.ts';
 
 import store from './store.ts';

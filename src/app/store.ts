@@ -1,7 +1,7 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit';
 
 import { articlesSlice } from '../components/articles/articles.slice.ts';
-import { userSlice } from '../components/user-info/user.slice.ts';
+import { userSlice } from '../components/user/user.slice.ts';
 
 import { extraArgument } from './extra-argument.ts';
 
