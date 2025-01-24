@@ -75,3 +75,23 @@
   text-decoration: none;
   color: inherit;
 }
+
+@media (max-width: 520px) {
+  .button {
+    width: 80px;
+    height: 40px;
+    font-size: 14px;
+
+    &--small {
+      width: 80px;
+      height: 50px;
+      padding-top: 4px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  .profile {
+    column-gap: 14px;
+  }
+}

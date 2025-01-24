@@ -5,10 +5,18 @@
 
   &__article {
     margin-top: 26px;
-    width: 60%;
+    width: 65%;
   }
 
   &__spinner {
     margin-top: 100px;
+  }
+}
+
+@media (max-width: 520px) {
+  .article-page {
+    &__article {
+      width: 90%;
+    }
   }
 }

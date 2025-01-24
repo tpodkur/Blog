@@ -25,3 +25,18 @@
   line-height: 22px;
   opacity: 0.5;
 }
+
+@media (max-width: 520px) {
+  .user {
+    flex-direction: column;
+
+    &__label {
+      margin-right: 0;
+    }
+
+    &__image {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

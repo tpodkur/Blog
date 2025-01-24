@@ -33,3 +33,9 @@
 .article {
   width: 65%;
 }
+
+@media (max-width: 520px) {
+  .article {
+    width: 90%;
+  }
+}
