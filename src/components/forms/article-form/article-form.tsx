@@ -2,6 +2,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
 import { Button } from 'antd';
+import { useState } from 'react';
 
 import classes from '../form.module.scss';
 import { useAppDispath } from '../../../redux.ts';
@@ -101,8 +102,21 @@ const ArticleForm = ({
         text,
         tags: tags.filter((tagField) => !!tagField.value.length).map((tagField) => tagField.value),
       })
-    ).then(() => doReset && reset());
+    ).then(() => {
+      showPopup();
+      if (doReset) {
+        reset();
+      }
+    });
   });
+
+  const [style, setStyle] = useState<React.CSSProperties>({ opacity: '0' });
+  const showPopup = () => {
+    setStyle((prevState) => ({ ...prevState, opacity: '100%' }));
+    setTimeout(() => {
+      setStyle((prevState) => ({ ...prevState, opacity: '0' }));
+    }, 1500);
+  };
 
   const tagsList = fields.map((field, index) => {
     return (
@@ -168,6 +182,9 @@ const ArticleForm = ({
         {errors.tag && <p className={classes['form__validation-message']}>{errors?.tag?.message}</p>}
       </label>
       <input type="submit" value="Send" className={`${classes.form__submit} ${classes['form__submit--size_S']}`} />
+      <div style={style} className={classes.popup}>
+        Submitted
+      </div>
     </form>
   );
 };
