@@ -48,7 +48,7 @@ const ArticleList = () => {
 
   const errorMessage = (
     <p className={classes['list-wrapper__message']}>
-      Что-то пошло не так :( <br /> Попробуйте перезагрузить страницу
+      Something went wrong :( <br /> Try to reload the page
     </p>
   );
 

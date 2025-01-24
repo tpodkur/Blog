@@ -5,7 +5,7 @@ import classes from './user-info.module.scss';
 
 type UserInfoProps = {
   author: string;
-  image: string;
+  image?: string;
   date?: string;
 };
 

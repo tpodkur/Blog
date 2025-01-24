@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
         path: 'articles',
         Component: ArticleList,
         loader: () => {
-          loadStore().then(() => store.dispatch(requestArticles()));
+          loadStore().then(() => store.dispatch(requestArticles({})));
           return null;
         },
       },

@@ -5,7 +5,7 @@ import { register, login, getUser, updateUser } from './user-thunks.ts';
 export type User = {
   username: string;
   email: string;
-  image?: string | null;
+  image?: string;
 };
 
 type UserState = {

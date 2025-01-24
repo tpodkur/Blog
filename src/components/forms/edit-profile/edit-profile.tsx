@@ -8,12 +8,7 @@ import { updateUser } from '../../user/user-thunks.ts';
 import { extractError } from '../../../shared/auth-provider.ts';
 import { useAppDispath } from '../../../redux.ts';
 
-type FormValues = {
-  username: string;
-  email: string;
-  password: string;
-  image: string;
-};
+type FormValues = Record<string, string>;
 
 const EditProfileSchema: ZodType<FormValues> = z.object({
   username: z
@@ -48,7 +43,7 @@ const EditProfile = () => {
   };
 
   const getObjectWithoutEmptyFields = (data: FormValues) => {
-    const res = {};
+    const res: FormValues = {};
     for (const prop in data) {
       if (data[prop]) {
         res[prop] = data[prop];
@@ -126,7 +121,7 @@ const EditProfile = () => {
           {...register('image')}
         />
       </label>
-      {errors.image && <p className={classes['form__validation-message']}>{errors?.avatar?.message}</p>}
+      {errors.image && <p className={classes['form__validation-message']}>{errors?.image?.message}</p>}
       <input type="submit" value="Save" className={classes.form__submit} />
       {error}
       <div style={style} className={classes.popup}>

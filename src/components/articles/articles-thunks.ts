@@ -4,7 +4,8 @@ import { articlesSlice, ArticleId } from './articles.slice.ts';
 
 export const requestArticles = createAppAsyncThunk(
   'article/requestArticles',
-  async (_, thunkAPI) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (_: { refetch?: boolean } = {}, thunkAPI) => {
     const page = articlesSlice.selectors.page(thunkAPI.getState());
     const offset = (page - 1) * 20;
     try {

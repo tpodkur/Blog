@@ -1,3 +1,5 @@
+import { isAxiosError } from 'axios';
+
 import { AppThunk, createAppAsyncThunk } from '../../redux.ts';
 import { removeToken } from '../../shared/token-provider.ts';
 import { requestArticles } from '../articles/articles-thunks.ts';
@@ -10,7 +12,10 @@ export const register = createAppAsyncThunk(
     try {
       return await thunkAPI.extra.api.register(email, password, username);
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.response.data.errors });
+      if (isAxiosError(error)) {
+        return thunkAPI.rejectWithValue({ error: error.response?.data?.errors });
+      }
+      throw error;
     }
   }
 );
@@ -24,7 +29,10 @@ export const login = createAppAsyncThunk(
       await thunkAPI.extra.router.navigate('/articles');
       return res;
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.response.data.errors });
+      if (isAxiosError(error)) {
+        return thunkAPI.rejectWithValue({ error: error.response?.data?.errors });
+      }
+      throw error;
     }
   }
 );
@@ -57,7 +65,10 @@ export const updateUser = createAppAsyncThunk(
     try {
       return await thunkAPI.extra.api.updateUser(user);
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.response.data.errors });
+      if (isAxiosError(error)) {
+        return thunkAPI.rejectWithValue({ error: error.response?.data?.errors });
+      }
+      throw error;
     }
   }
 );

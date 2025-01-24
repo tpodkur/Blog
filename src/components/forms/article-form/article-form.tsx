@@ -33,6 +33,7 @@ type CallbackFunction = ({
 
 type ArticleFormProps = {
   formName: string;
+  id: string;
   title?: string;
   description?: string;
   text?: string;
@@ -84,7 +85,7 @@ const ArticleForm = ({
     control,
   });
 
-  const onDeleteTag = (fieldIndex) => {
+  const onDeleteTag = (fieldIndex: number) => {
     remove(fieldIndex);
   };
 
@@ -124,7 +125,7 @@ const ArticleForm = ({
         <input
           type="text"
           placeholder="Tag"
-          className={`${classes.input} ${classes.tag__input} ${errors.tag && classes['input--not-valid']}`}
+          className={`${classes.input} ${classes.tag__input}`}
           {...register(`tags.${index}.value`)}
         />
         <Button danger className={`${classes['tag-button']}`} onClick={() => onDeleteTag(index)}>
@@ -179,7 +180,6 @@ const ArticleForm = ({
             Add tag
           </Button>
         </div>
-        {errors.tag && <p className={classes['form__validation-message']}>{errors?.tag?.message}</p>}
       </label>
       <input type="submit" value="Send" className={`${classes.form__submit} ${classes['form__submit--size_S']}`} />
       <div style={style} className={classes.popup}>

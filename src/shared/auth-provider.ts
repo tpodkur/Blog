@@ -1,4 +1,9 @@
-export const extractError = (error): string => {
+export const extractError = (error: {
+  username?: string;
+  email?: string;
+  password?: string;
+  'email or password'?: string;
+}): string => {
   let message = '';
   message += error.username ? `username ${error.username} ` : '';
   message += error.email ? `email ${error.email} ` : '';

@@ -3,7 +3,7 @@ import axios, { type AxiosRequestConfig } from 'axios';
 import { getToken, isExpired } from './token-provider.ts';
 
 class TokenError extends Error {
-  constructor(message) {
+  constructor(message: string) {
     super(message);
     this.name = 'TokenError';
   }
@@ -31,7 +31,7 @@ const authRequest = {
     const options = addAuthHeader(config);
     return axios.get(url, options);
   },
-  post: async (url: string, data: object, config: AxiosRequestConfig = {}) => {
+  post: async (url: string, data?: object, config: AxiosRequestConfig = {}) => {
     checkToken();
     const options = addAuthHeader(config);
     return axios.post(url, data, options);
