@@ -68,10 +68,19 @@ const EditProfile = () => {
         setErrorMessage(extractError(res.payload.error));
       } else {
         setErrorMessage('');
+        showPopup();
         reset();
       }
     });
   });
+
+  const [style, setStyle] = useState<React.CSSProperties>({ opacity: '0' });
+  const showPopup = () => {
+    setStyle((prevState) => ({ ...prevState, opacity: '100%' }));
+    setTimeout(() => {
+      setStyle((prevState) => ({ ...prevState, opacity: '0' }));
+    }, 1500);
+  };
 
   const error = errorMessage.length ? <span className={classes['form__error-message']}>{errorMessage}</span> : null;
 
@@ -120,6 +129,9 @@ const EditProfile = () => {
       {errors.image && <p className={classes['form__validation-message']}>{errors?.avatar?.message}</p>}
       <input type="submit" value="Save" className={classes.form__submit} />
       {error}
+      <div style={style} className={classes.popup}>
+        Submitted
+      </div>
     </form>
   );
 };
