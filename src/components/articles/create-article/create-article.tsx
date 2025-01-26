@@ -1,8 +1,7 @@
 import ArticleForm from '../../forms/article-form/article-form.tsx';
-import { createArticle } from '../articles-thunks.ts';
 
 const CreateArticle = () => {
-  return <ArticleForm formName={'Create new article'} actionThunkToDispatchBySubmit={createArticle} doReset={true} />;
+  return <ArticleForm id={''} formName={'Create new article'} doReset={true} formType={'create'} />;
 };
 
 export default CreateArticle;

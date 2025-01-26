@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import classes from '../form.module.scss';
 import { useAppDispath } from '../../../redux.ts';
-import { type Article } from '../../articles/articles.slice.ts';
+import { createArticle, updateArticle } from '../../articles/articles-thunks.ts';
 
 type FormValues = {
   title: string;
@@ -17,20 +17,6 @@ type FormValues = {
   }[];
 };
 
-type CallbackFunction = ({
-  id,
-  title,
-  description,
-  text,
-  tags,
-}: {
-  id?: string;
-  title: string;
-  description: string;
-  text: string;
-  tags?: string[];
-}) => Promise<{ article: Article }>;
-
 type ArticleFormProps = {
   formName: string;
   id: string;
@@ -38,8 +24,8 @@ type ArticleFormProps = {
   description?: string;
   text?: string;
   tags?: string[];
-  actionThunkToDispatchBySubmit: CallbackFunction;
   doReset: boolean;
+  formType: 'create' | 'update';
 };
 
 const CreateArticleSchema: ZodType<FormValues> = z.object({
@@ -53,16 +39,7 @@ const CreateArticleSchema: ZodType<FormValues> = z.object({
   ),
 });
 
-const ArticleForm = ({
-  formName,
-  id,
-  title,
-  description,
-  text,
-  tags,
-  actionThunkToDispatchBySubmit,
-  doReset,
-}: ArticleFormProps) => {
+const ArticleForm = ({ formName, id, title, description, text, tags, doReset, formType }: ArticleFormProps) => {
   const dispatch = useAppDispath();
   const {
     register,
@@ -84,6 +61,7 @@ const ArticleForm = ({
     name: 'tags',
     control,
   });
+  const actionThunkToDispatchBySubmit = formType === 'create' ? createArticle : updateArticle;
 
   const onDeleteTag = (fieldIndex: number) => {
     remove(fieldIndex);

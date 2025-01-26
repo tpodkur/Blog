@@ -4,7 +4,6 @@ import { ArticleId, articlesSlice } from '../articles.slice.ts';
 import { useAppSelector } from '../../../redux.ts';
 import ArticleForm from '../../forms/article-form/article-form.tsx';
 import Spinner from '../../spinner/spinner.tsx';
-import { updateArticle } from '../articles-thunks.ts';
 
 import classes from './edit-article.module.scss';
 
@@ -19,9 +18,7 @@ const EditArticle = () => {
     </div>
   );
 
-  const content = (
-    <ArticleForm {...article} formName={'Edit article'} actionThunkToDispatchBySubmit={updateArticle} doReset={false} />
-  );
+  const content = <ArticleForm {...article} formName={'Edit article'} doReset={false} formType={'update'} />;
 
   return <div className={classes['edit-article']}>{isPending || !article ? spinner : content}</div>;
 };
