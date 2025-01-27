@@ -1,7 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { extractError } from '../../shared/auth-provider.ts';
-
 import { register, login, getUser, updateUser } from './user-thunks.ts';
 
 export type User = {
@@ -71,6 +69,18 @@ export const userSlice = createSlice({
         user: null,
       };
     },
+    setEditFormError: (state, action: PayloadAction<string>) => {
+      return {
+        ...state,
+        requests: {
+          ...state.requests,
+          updateUser: {
+            ...state.requests.updateUser,
+            error: action.payload,
+          },
+        },
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
@@ -97,7 +107,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, action) => {
       state.requests.login.status = 'failed';
-      state.requests.login.error = extractError(action.payload.error);
+      state.requests.login.error = action.payload as string;
     });
     builder.addCase(getUser.pending, (state) => {
       state.requests.getUser.status = 'pending';
@@ -112,14 +122,16 @@ export const userSlice = createSlice({
     });
     builder.addCase(updateUser.pending, (state) => {
       state.requests.updateUser.status = 'pending';
+      state.requests.updateUser.error = '';
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.updateUser.status = 'success';
       state.user = user;
     });
-    builder.addCase(updateUser.rejected, (state) => {
+    builder.addCase(updateUser.rejected, (state, action) => {
       state.requests.updateUser.status = 'failed';
+      state.requests.updateUser.error = action.payload as string;
     });
   },
 });

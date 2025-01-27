@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import classes from '../form.module.scss';
 import { updateUser } from '../../user/user-thunks.ts';
-import { extractError } from '../../../shared/auth-provider.ts';
-import { useAppDispath } from '../../../redux.ts';
+import { useAppDispath, useAppSelector } from '../../../redux.ts';
+import { userSlice } from '../../user/user.slice.ts';
 
 type FormValues = Record<string, string>;
 
@@ -26,7 +26,6 @@ const EditProfileSchema: ZodType<FormValues> = z.object({
 });
 
 const EditProfile = () => {
-  const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useAppDispath();
   const {
     register,
@@ -34,6 +33,7 @@ const EditProfile = () => {
     handleSubmit,
     reset,
   } = useForm<FormValues>({ resolver: zodResolver(EditProfileSchema), mode: 'onSubmit' });
+  const errorMessage = useAppSelector((state) => userSlice.selectors.updateUserError(state));
 
   const isEmptyForm = (data: FormValues) => {
     for (const prop in data) {
@@ -54,15 +54,12 @@ const EditProfile = () => {
 
   const onSubmit = handleSubmit((data) => {
     if (isEmptyForm(data)) {
-      setErrorMessage('At least one field must be not empty.');
+      dispatch(userSlice.actions.setEditFormError('At least one field must be not empty.'));
       return;
     }
     const clearData = getObjectWithoutEmptyFields(data);
     dispatch(updateUser(clearData)).then((res) => {
-      if (res.error) {
-        setErrorMessage(extractError(res.payload.error));
-      } else {
-        setErrorMessage('');
+      if (res.meta.requestStatus === 'fulfilled') {
         showPopup();
         reset();
       }

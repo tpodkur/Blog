@@ -80,11 +80,16 @@ export const api = {
   },
 
   login: async (email: string, password: string) => {
-    return await axios.post(`${baseURL}/users/login`, { user: { email, password } }).then((response) => {
-      const user = UserDto.parse(response.data.user);
-      setToken(user.token);
-      return { user };
-    });
+    return axios
+      .post(`${baseURL}/users/login`, { user: { email, password } })
+      .then((response) => {
+        const user = UserDto.parse(response.data.user);
+        setToken(user.token);
+        return { user };
+      })
+      .catch((error) => {
+        throw extractError(error.response.data.errors);
+      });
   },
 
   getUser: async () => {
@@ -118,6 +123,9 @@ export const api = {
         const user = UserDto.parse(response.data.user);
         setToken(user.token);
         return { user };
+      })
+      .catch((error) => {
+        throw extractError(error.response.data.errors);
       });
   },
 
