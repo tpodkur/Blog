@@ -69,14 +69,13 @@ export const updateArticle = createAppAsyncThunk(
       title,
       description,
       text,
-      tagList,
-    }: { id: string; title: string; description: string; text: string; tagList?: string[] },
+      tags,
+    }: { id: string; title: string; description: string; text: string; tags?: string[] },
     thunkAPI
   ) => {
     try {
-      return await thunkAPI.extra.api.updateArticle(id, title, description, text, tagList);
+      return await thunkAPI.extra.api.updateArticle(id, title, description, text, tags);
     } catch (error) {
-      console.error(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
