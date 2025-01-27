@@ -1,17 +1,22 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { useAppDispath, useAppSelector } from '../../redux.ts';
 import { userSlice } from '../user/user.slice.ts';
 import UserInfo from '../user/user-info/user-info.tsx';
 import { logout } from '../user/user-thunks.ts';
+import { isPrivateRoute, router } from '../../app/router.tsx';
 
 import classes from './header.module.scss';
 
 const Header = () => {
   const dispath = useAppDispath();
+  const location = useLocation();
   const isUserLoggedIn = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
   const { username, image } = useAppSelector((state) => userSlice.selectors.user(state)) ?? { username: '' };
-  const handleLodOut = () => dispath(logout());
+  const handleLodOut = () => {
+    dispath(logout());
+    if (isPrivateRoute(location.pathname)) router.navigate('/unauthorized');
+  };
 
   const profile = (
     <div className={classes.profile}>

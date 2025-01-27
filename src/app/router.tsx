@@ -18,6 +18,17 @@ import store from './store.ts';
 
 const loadStore = () => new Promise((resolve) => setTimeout(() => resolve(store), 0));
 
+const privateRoutes = {
+  editProfile: '/edit-profile',
+  newArticle: '/new-article',
+  editArticle: /\/articles\/.*\/edit/,
+};
+
+export const isPrivateRoute = (pathname: string) => {
+  const { editProfile, newArticle, editArticle } = privateRoutes;
+  return editProfile === pathname || newArticle === pathname || editArticle.test(pathname);
+};
+
 export const router = createBrowserRouter([
   {
     path: '/',

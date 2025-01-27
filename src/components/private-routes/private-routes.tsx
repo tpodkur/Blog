@@ -1,12 +1,17 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
-import { useAppSelector } from '../../redux.ts';
-import { userSlice } from '../user/user.slice.ts';
+import store from '../../app/store.ts';
+import { getUser } from '../user/user-thunks.ts';
+import router from '../../app/router.tsx';
 
 const PrivateRoutes = () => {
-  const isLoggedIn = useAppSelector((state) => userSlice.selectors.isLoggedIn(state));
+  store.dispatch(getUser()).then((res) => {
+    if (res.meta.requestStatus === 'rejected') {
+      router.navigate('/unauthorized');
+    }
+  });
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/unauthorized" replace />;
+  return <Outlet />;
 };
 
 export default PrivateRoutes;
