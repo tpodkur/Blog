@@ -26,14 +26,18 @@ const SignIn = () => {
     handleSubmit,
     reset,
   } = useForm<FormValues>({ resolver: zodResolver(SignInSchema), mode: 'onSubmit' });
-  const loginError = useAppSelector((state) => userSlice.selectors.loginError(state));
+  const errorMessage = useAppSelector((state) => userSlice.selectors.loginError(state));
 
   const onSubmit = handleSubmit((data) => {
     const { email, password } = data;
-    dispatch(login({ email, password })).then(() => reset());
+    dispatch(login({ email, password })).then((res) => {
+      if (res.meta.requestStatus === 'fulfilled') {
+        reset();
+      }
+    });
   });
 
-  const error = loginError.length ? <span className={classes['form__error-message']}>{loginError}</span> : null;
+  const error = errorMessage.length ? <span className={classes['form__error-message']}>{errorMessage}</span> : null;
 
   return (
     <form method="post" onSubmit={onSubmit} className={classes.form}>

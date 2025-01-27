@@ -41,7 +41,7 @@ const SignUpSchema: ZodType<FormValues> = z
 const SignUp = () => {
   const [checked, setChecked] = useState(true);
   const dispatch = useAppDispath();
-  const registerError = useAppSelector((state) => userSlice.selectors.registerError(state));
+  const errorMessage = useAppSelector((state) => userSlice.selectors.registerError(state));
 
   const {
     register,
@@ -52,12 +52,16 @@ const SignUp = () => {
 
   const onSubmit = handleSubmit((data) => {
     const { email, password, username } = data;
-    dispatch(userRegister({ email, password, username })).then(() => reset());
+    dispatch(userRegister({ email, password, username })).then((res) => {
+      if (res.meta.requestStatus === 'fulfilled') {
+        reset();
+      }
+    });
   });
 
   const onCheckboxChange = () => setChecked((prev) => !prev);
 
-  const error = registerError.length ? <span className={classes['form__error-message']}>{registerError}</span> : null;
+  const error = errorMessage.length ? <span className={classes['form__error-message']}>{errorMessage}</span> : null;
 
   return (
     <form method="post" onSubmit={onSubmit} className={classes.form}>
