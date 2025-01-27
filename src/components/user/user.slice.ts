@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+import { extractError } from '../../shared/auth-provider.ts';
+
 import { register, login, getUser, updateUser } from './user-thunks.ts';
 
 export type User = {
@@ -11,20 +13,44 @@ export type User = {
 type UserState = {
   user: User | null;
   requests: {
-    registerStatus: 'idle' | 'pending' | 'success' | 'failed';
-    loginStatus: 'idle' | 'pending' | 'success' | 'failed';
-    userStatus: 'idle' | 'pending' | 'success' | 'failed';
-    updateStatus: 'idle' | 'pending' | 'success' | 'failed';
+    register: {
+      status: 'idle' | 'pending' | 'success' | 'failed';
+      error: string;
+    };
+    login: {
+      status: 'idle' | 'pending' | 'success' | 'failed';
+      error: string;
+    };
+    getUser: {
+      status: 'idle' | 'pending' | 'success' | 'failed';
+      error: string;
+    };
+    updateUser: {
+      status: 'idle' | 'pending' | 'success' | 'failed';
+      error: string;
+    };
   };
 };
 
 const initialUserState: UserState = {
   user: null,
   requests: {
-    registerStatus: 'idle',
-    loginStatus: 'idle',
-    userStatus: 'idle',
-    updateStatus: 'idle',
+    register: {
+      status: 'idle',
+      error: '',
+    },
+    login: {
+      status: 'idle',
+      error: '',
+    },
+    getUser: {
+      status: 'idle',
+      error: '',
+    },
+    updateUser: {
+      status: 'idle',
+      error: '',
+    },
   },
 };
 
@@ -34,6 +60,9 @@ export const userSlice = createSlice({
   selectors: {
     user: (state) => state.user,
     isLoggedIn: (state) => !!state.user,
+    loginError: (state) => state.requests.login.error,
+    registerError: (state) => state.requests.register.error,
+    updateUserError: (state) => state.requests.updateUser.error,
   },
   reducers: {
     removeUser: (state) => {
@@ -45,48 +74,52 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
-      state.requests.registerStatus = 'pending';
+      state.requests.register.status = 'pending';
+      state.requests.register.error = '';
     });
     builder.addCase(register.fulfilled, (state, action: PayloadAction<{ user: User }>) => {
       const { user } = action.payload;
-      state.requests.registerStatus = 'success';
+      state.requests.register.status = 'success';
       state.user = user;
     });
-    builder.addCase(register.rejected, (state) => {
-      state.requests.registerStatus = 'failed';
+    builder.addCase(register.rejected, (state, action) => {
+      state.requests.register.status = 'failed';
+      state.requests.register.error = extractError(action.payload.error);
     });
     builder.addCase(login.pending, (state) => {
-      state.requests.loginStatus = 'pending';
+      state.requests.login.status = 'pending';
+      state.requests.login.error = '';
     });
     builder.addCase(login.fulfilled, (state, action) => {
       const { user } = action.payload;
-      state.requests.loginStatus = 'success';
+      state.requests.login.status = 'success';
       state.user = user;
     });
-    builder.addCase(login.rejected, (state) => {
-      state.requests.loginStatus = 'failed';
+    builder.addCase(login.rejected, (state, action) => {
+      state.requests.login.status = 'failed';
+      state.requests.login.error = extractError(action.payload.error);
     });
     builder.addCase(getUser.pending, (state) => {
-      state.requests.userStatus = 'pending';
+      state.requests.getUser.status = 'pending';
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
       const { user } = action.payload;
-      state.requests.userStatus = 'success';
+      state.requests.getUser.status = 'success';
       state.user = user;
     });
     builder.addCase(getUser.rejected, (state) => {
-      state.requests.userStatus = 'failed';
+      state.requests.getUser.status = 'failed';
     });
     builder.addCase(updateUser.pending, (state) => {
-      state.requests.updateStatus = 'pending';
+      state.requests.updateUser.status = 'pending';
     });
     builder.addCase(updateUser.fulfilled, (state, action) => {
       const { user } = action.payload;
-      state.requests.updateStatus = 'success';
+      state.requests.updateUser.status = 'success';
       state.user = user;
     });
     builder.addCase(updateUser.rejected, (state) => {
-      state.requests.updateStatus = 'failed';
+      state.requests.updateUser.status = 'failed';
     });
   },
 });

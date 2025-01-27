@@ -2,12 +2,11 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z, ZodType } from 'zod';
-import { useState } from 'react';
 
 import classes from '../../form.module.scss';
 import { login } from '../../../user/user-thunks.ts';
-import { useAppDispath } from '../../../../redux.ts';
-import { extractError } from '../../../../shared/auth-provider.ts';
+import { useAppDispath, useAppSelector } from '../../../../redux.ts';
+import { userSlice } from '../../../user/user.slice.ts';
 
 type FormValues = {
   email: string;
@@ -27,21 +26,14 @@ const SignIn = () => {
     handleSubmit,
     reset,
   } = useForm<FormValues>({ resolver: zodResolver(SignInSchema), mode: 'onSubmit' });
-  const [errorMessage, setErrorMessage] = useState('');
+  const loginError = useAppSelector((state) => userSlice.selectors.loginError(state));
 
   const onSubmit = handleSubmit((data) => {
     const { email, password } = data;
-    dispatch(login({ email, password })).then((res) => {
-      if (res.error) {
-        setErrorMessage(extractError(res.payload.error));
-      } else {
-        setErrorMessage('');
-        reset();
-      }
-    });
+    dispatch(login({ email, password })).then(() => reset());
   });
 
-  const error = errorMessage.length ? <span className={classes['form__error-message']}>{errorMessage}</span> : null;
+  const error = loginError.length ? <span className={classes['form__error-message']}>{loginError}</span> : null;
 
   return (
     <form method="post" onSubmit={onSubmit} className={classes.form}>
