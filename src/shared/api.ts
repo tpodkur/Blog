@@ -5,6 +5,7 @@ import { Article } from '../components/articles/articles.slice.ts';
 
 import { getToken, setToken } from './token-provider.ts';
 import authRequest from './auth-request.tsx';
+import { extractError } from './auth-provider.ts';
 
 const baseURL = 'https://blog-platform.kata.academy/api';
 
@@ -66,11 +67,16 @@ export const api = {
   },
 
   register: async (email: string, password: string, username: string) => {
-    return await axios.post(`${baseURL}/users`, { user: { email, password, username } }).then((response) => {
-      const user = UserDto.parse(response.data.user);
-      setToken(user.token);
-      return { user };
-    });
+    return axios
+      .post(`${baseURL}/users`, { user: { email, password, username } })
+      .then((response) => {
+        const user = UserDto.parse(response.data.user);
+        setToken(user.token);
+        return { user };
+      })
+      .catch((error) => {
+        throw extractError(error.response.data.errors);
+      });
   },
 
   login: async (email: string, password: string) => {

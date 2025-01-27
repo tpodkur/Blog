@@ -12,10 +12,7 @@ export const register = createAppAsyncThunk(
     try {
       return await thunkAPI.extra.api.register(email, password, username);
     } catch (error) {
-      if (isAxiosError(error)) {
-        return thunkAPI.rejectWithValue({ error: error.response?.data?.errors });
-      }
-      throw error;
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

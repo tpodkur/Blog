@@ -84,7 +84,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(register.rejected, (state, action) => {
       state.requests.register.status = 'failed';
-      state.requests.register.error = extractError(action.payload.error);
+      state.requests.register.error = action.payload as string;
     });
     builder.addCase(login.pending, (state) => {
       state.requests.login.status = 'pending';
