@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { Article } from '../components/articles/articles.slice.ts';
 
-import { getToken, setToken } from './token-provider.ts';
+import { getToken, removeToken, setToken } from './token-provider.ts';
 import authRequest from './auth-request.tsx';
 import { extractError } from './auth-provider.ts';
 
@@ -93,10 +93,19 @@ export const api = {
   },
 
   getUser: async () => {
-    return authRequest.get(`${baseURL}/user`).then((response) => {
-      const user = response.data.user;
-      return { user };
-    });
+    return authRequest
+      .get(`${baseURL}/user`)
+      .then((response) => {
+        const user = response.data.user;
+        return { user };
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          removeToken();
+          throw 'Unauthorized';
+        }
+        throw error;
+      });
   },
 
   updateUser: async ({

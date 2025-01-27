@@ -33,7 +33,7 @@ export const getUser = createAppAsyncThunk('user/getUser', async (_, thunkAPI) =
   try {
     return await thunkAPI.extra.api.getUser();
   } catch (error) {
-    return thunkAPI.rejectWithValue({ error });
+    return thunkAPI.rejectWithValue(error);
   }
 });
 

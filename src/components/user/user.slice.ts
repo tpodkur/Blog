@@ -111,14 +111,16 @@ export const userSlice = createSlice({
     });
     builder.addCase(getUser.pending, (state) => {
       state.requests.getUser.status = 'pending';
+      state.requests.getUser.error = '';
     });
     builder.addCase(getUser.fulfilled, (state, action) => {
       const { user } = action.payload;
       state.requests.getUser.status = 'success';
       state.user = user;
     });
-    builder.addCase(getUser.rejected, (state) => {
+    builder.addCase(getUser.rejected, (state, action) => {
       state.requests.getUser.status = 'failed';
+      state.requests.register.error = action.payload as string;
     });
     builder.addCase(updateUser.pending, (state) => {
       state.requests.updateUser.status = 'pending';
