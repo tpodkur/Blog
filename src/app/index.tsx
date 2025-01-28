@@ -8,6 +8,7 @@ import { getToken } from '../shared/token-provider.ts';
 
 import store from './store.ts';
 import router from './router.tsx';
+import './index.scss';
 
 const token = getToken();
 if (token) {
