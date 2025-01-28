@@ -93,7 +93,7 @@ const Article = ({ article, smallSize, isArticlePage = false }: ArticleProps) =>
           {isArticlePage ? titleTextElement : titleLinkElement}
           <button className={`${classes.article__likes} ${classes.likes}`} disabled={!isAuthorized} onClick={onLike}>
             <span className={classes.likes__logo}>
-              <img src={favorited ? '/src/assets/like--active.svg' : '/src/assets/like.svg'} />
+              <img src={favorited ? '/like--active.svg' : '/like.svg'} />
             </span>
             <span className={classes.likes__count}>{favoritesCount}</span>
           </button>
