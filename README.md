@@ -1,50 +1,62 @@
-# React + TypeScript + Vite
+# Realworld blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An application for publishing posts and articles. View the general feed of publications, register, edit your profile, write, upload and edit articles, and like them.
 
-Currently, two official plugins are available:
+The deployed application is available on [Realworld Blog](https://realworld-blog-alpha.vercel.app/articles).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<br>
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To get started with the project locally, follow these steps:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository:
+```bash
+git clone https://github.com/tpodkur/Blog.git
+cd Blog
 ```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Install dependencies:
+```bash
+npm install
 ```
+3. Start the development server:
+```bash
+npm run dev
+```
+4. Navigate to http://localhost:5173 (or your configured port) in your browser to view the app.
+
+<br>
+
+### Available Scripts
+
+In the project directory, you can run:
+
+#### `npm run dev`
+
+Runs the app in the development mode.\
+Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+<br>
+
+#### `npm run lint`
+Runs ESLint on the source code to check for coding style and potential errors.
+<br>
+
+#### `npm run lint:fix`
+Runs ESLint on the source code and automatically fix issues that can be resolved.
+<br>
+
+#### `npm run format`
+Formats the source code according to Prettier's styling rules for consistent code appearance.
+
+<br>
+
+### Technology stack
+**Frontend:** React, TypeScript, SASS, Eslint, Prettier, [Ant Designt](https://ant.design/components/overview/)
+<br>
+**Data storage:** Redux
+<br>
+**API:** [Realworld Blog](https://bump.sh/gerome-grignon-lp2/doc/realworld)
+
